@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HuertoHogar · Carrito</title>
+
+  <!-- Fuentes + estilos (igual que index) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-inner">
+      <div class="brand">
+        <a href="./index.html" class="logo">HuertoHogar</a>
+        <p class="tagline">Del campo a tu mesa</p>
+      </div>
+      <nav aria-label="Principal">
+        <ul>
+          <li><a href="./catalogo.html">Catálogo</a></li>
+          <li><a href="./nosotros.html">Nosotros</a></li>
+          <li><a href="./contacto.html">Contacto</a></li>
+          <li><a href="./carrito.html" aria-current="page">Carrito <span id="cartCount" class="badge" style="display:none"></span></a></li>
+          <li><a href="./login.html">Entrar</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container section">
+    <h1>Tu carrito</h1>
+    <p class="muted">Revisa tus productos, ajusta cantidades o elimina ítems antes de confirmar.</p>
+
+    <!-- Carrito vacío -->
+    <div id="carritoVacio" class="card" style="display:none">
+      <p>Tu carrito está vacío por ahora.</p>
+      <a class="btn btn-primary" href="./catalogo.html">Ir al catálogo</a>
+    </div>
+
+    <!-- Tabla carrito -->
+    <div id="carritoWrap" class="card" style="overflow:auto;">
+      <table class="table" id="tablaCarrito" aria-describedby="resumen">
+        <thead>
+          <tr>
+            <th style="min-width:180px">Producto</th>
+            <th>Precio</th>
+            <th style="width:130px">Cantidad</th>
+            <th>Subtotal</th>
+            <th style="width:80px">Quitar</th>
+          </tr>
+        </thead>
+        <tbody id="carritoBody"></tbody>
+      </table>
+
+      <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;margin-top:12px">
+        <div>
+          <button id="btnVaciar" class="btn btn-secondary" type="button">Vaciar carrito</button>
+          <a class="btn btn-link" href="./catalogo.html">Seguir comprando</a>
+        </div>
+        <div id="resumen" style="text-align:right">
+          <p class="muted">Los precios están en CLP.</p>
+          <p><strong>Total:</strong> $<span id="total">0</span></p>
+          <button id="btnConfirmar" class="btn btn-primary" type="button">Confirmar pedido</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <p>© <span id="y"></span> HuertoHogar — Frescura y sostenibilidad</p>
+      <nav aria-label="Secundaria">
+        <a href="#">Términos</a>
+        <a href="#">Privacidad</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Datos y lógica -->
+  <script src="../js/data.js"></script>
+  <script src="../js/cart.js"></script>
+</body>
+</html>

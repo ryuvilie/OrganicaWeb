@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HuertoHogar · Catálogo</title>
+
+  <!-- Fuentes y estilos (mismas del index) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <!-- Header (igual al index) -->
+  <header>
+    <div class="container header-inner">
+      <div class="brand">
+        <a href="./index.html" class="logo">HuertoHogar</a>
+        <p class="tagline">Del campo a tu mesa</p>
+      </div>
+      <nav aria-label="Principal">
+        <ul>
+          <li><a href="./catalogo.html" aria-current="page">Catálogo</a></li>
+          <li><a href="./nosotros.html">Nosotros</a></li>
+          <li><a href="./contacto.html">Contacto</a></li>
+          <li><a href="./carrito.html">Carrito <span id="cartCount" class="badge" style="display:none"></span></a></li>
+          <li><a href="./login.html">Entrar</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container section" id="contenido">
+    <h1>Catálogo</h1>
+    <p class="muted">Explora nuestras categorías y añade productos a tu carrito.</p>
+
+    <!-- Controles -->
+    <section aria-label="Controles de catálogo" class="card" style="margin:1rem 0;">
+      <form id="filtros" style="display:grid; gap:12px; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); align-items:end;">
+        <div>
+          <label for="cat">Categoría</label>
+          <select id="cat" name="cat" style="width:100%; padding:.6rem; border-radius:10px; border:1px solid #e5e5e5">
+            <option value="todas">Todas</option>
+          </select>
+        </div>
+        <div>
+          <label for="q">Búsqueda</label>
+          <input id="q" name="q" type="search" placeholder="Busca por nombre u origen…" style="width:100%; padding:.6rem; border-radius:10px; border:1px solid #e5e5e5">
+        </div>
+        <div>
+          <label for="orden">Ordenar</label>
+          <select id="orden" name="orden" style="width:100%; padding:.6rem; border-radius:10px; border:1px solid #e5e5e5">
+            <option value="relevancia">Relevancia</option>
+            <option value="precio-asc">Precio: menor a mayor</option>
+            <option value="precio-desc">Precio: mayor a menor</option>
+            <option value="nombre-asc">Nombre A–Z</option>
+            <option value="nombre-desc">Nombre Z–A</option>
+          </select>
+        </div>
+        <div>
+          <button class="btn btn-primary"

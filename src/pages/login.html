@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HuertoHogar · Entrar</title>
+
+  <!-- Fuentes + estilos (mismos del index) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-inner">
+      <div class="brand">
+        <a href="./index.html" class="logo">HuertoHogar</a>
+        <p class="tagline">Del campo a tu mesa</p>
+      </div>
+      <nav aria-label="Principal">
+        <ul>
+          <li><a href="./catalogo.html">Catálogo</a></li>
+          <li><a href="./nosotros.html">Nosotros</a></li>
+          <li><a href="./contacto.html">Contacto</a></li>
+          <li><a href="./carrito.html">Carrito</a></li>
+          <li><a href="./login.html" aria-current="page">Entrar</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container section">
+    <h1>Iniciar sesión</h1>
+    <p class="muted" style="max-width:640px">
+      Ingresa con tu correo y contraseña. Usamos tu cuenta para recordar direcciones y agilizar tus pedidos.
+    </p>
+
+    <form id="formLogin" class="card" novalidate style="max-width:640px">
+      <!-- Correo -->
+      <div class="field">
+        <label for="email">Correo</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          inputmode="email"
+          autocomplete="email"
+          placeholder="tu@email.com"
+          required
+          aria-describedby="email-hint email-error"
+        >
+        <small id="email-hint" class="hint">Usa un correo con formato válido (ej: nombre@dominio.cl)</small>
+        <small id="email-error" class="error" hidden></small>
+      </div>
+
+      <!-- Contraseña -->
+      <div class="field">
+        <label for="pass">Contraseña</label>
+        <input
+          id="pass"
+          name="pass"
+          type="password"
+          autocomplete="current-password"
+          minlength="6"
+          placeholder="Mínimo 6 caracteres"
+          required
+          aria-describedby="pass-hint pass-error"
+        >
+        <small id="pass-hint" class="hint">Mínimo 6 caracteres. Evita usar tu RUT o “123456”.</small>
+        <small id="pass-error" class="error" hidden></small>
+      </div>
+
+      <!-- Recordarme -->
+      <div class="field" style="display:flex;align-items:center;gap:.5rem">
+        <input id="remember" name="remember" type="checkbox">
+        <label for="remember" style="margin:0">Recordarme en este dispositivo</label>
+      </div>
+
+      <!-- Mensaje global -->
+      <div id="form-msg" class="form-msg" aria-live="polite"></div>
+
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+        <button class="btn btn-primary" type="submit">Entrar</button>
+        <button class="btn btn-secondary" type="button" id="btnDemo">Autocompletar demo</button>
+      </div>
+    </form>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <p>© <span id="y"></span> HuertoHogar — Frescura y sostenibilidad</p>
+      <nav aria-label="Secundaria">
+        <a href="#">Términos</a>
+        <a href="#">Privacidad</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../js/forms.js"></script>
+</body>
+</html>
