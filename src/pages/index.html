@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HuertoHogar · Inicio</title>
+
+  <!-- Tipografías del caso (Montserrat + Playfair Display) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- Hoja de estilos externa (desde src/pages/ a src/css/) -->
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <header>
+    <div class="container header-inner">
+      <div class="brand">
+        <a href="./index.html" class="logo">HuertoHogar</a>
+        <p class="tagline">Del campo a tu mesa</p>
+      </div>
+
+      <nav aria-label="Principal">
+        <ul>
+          <li><a href="./catalogo.html">Catálogo</a></li>
+          <li><a href="./nosotros.html">Nosotros</a></li>
+          <li><a href="./contacto.html">Contacto</a></li>
+          <li><a href="./carrito.html">Carrito</a></li>
+          <li><a href="./login.html">Entrar</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-inner">
+        <div class="hero__text">
+          <h1 id="hero-title">Frescura y sostenibilidad para tu hogar</h1>
+          <p>Productos locales: frutas, verduras, orgánicos y lácteos. Envíos a Santiago, Puerto Montt, Villarrica, Nacimiento, Viña del Mar, Valparaíso y Concepción.</p>
+          <a class="btn btn-primary" href="./catalogo.html">Ver catálogo</a>
+        </div>
+
+        <!-- Imagen (desde src/pages a /public/img) => ../../public/img/... -->
+        <figure class="hero__img">
+          <img src="../../public/img/hero.jpg" alt="Cosecha fresca de frutas y verduras">
+        </figure>
+      </div>
+    </section>
+
+    <!-- DESTACADOS POR CATEGORÍA -->
+    <section aria-labelledby="cats-title" class="home-categories">
+      <div class="container">
+        <h2 id="cats-title">Categorías destacadas</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>Frutas Frescas</h3>
+            <p>Manzanas Fuji, Naranjas Valencia, Plátanos Cavendish…</p>
+            <a class="btn btn-link" href="./catalogo.html?cat=frutas">Explorar</a>
+          </article>
+          <article class="card">
+            <h3>Verduras Orgánicas</h3>
+            <p>Zanahorias, Espinacas, Pimientos tricolores…</p>
+            <a class="btn btn-link" href="./catalogo.html?cat=verduras">Explorar</a>
+          </article>
+          <article class="card">
+            <h3>Productos Orgánicos</h3>
+            <p>Miel y granos como quinua orgánica.</p>
+            <a class="btn btn-link" href="./catalogo.html?cat=organicos">Explorar</a>
+          </article>
+          <article class="card">
+            <h3>Productos Lácteos</h3>
+            <p>Leche entera y derivados de granjas locales.</p>
+            <a class="btn btn-link" href="./catalogo.html?cat=lacteos">Explorar</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Video para cumplir rúbrica -->
+    <div class="video-wrapper">
+    <iframe
+    title="Video institucional HuertoHogar"
+    src="https://www.youtube.com/watch?v=8SS4Zdx1utc"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen
+    loading="lazy"></iframe>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <p>© <span id="y"></span> HuertoHogar — Frescura y sostenibilidad</p><br>
+      <p>Trabajo de Moira Guzman Y Briam Djesus</p>
+      <nav aria-label="Secundaria">
+        <a href="#">Términos</a>
+        <a href="#">Privacidad</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- JS principal (interacciones generales) -->
+  <script src="../js/app.js" defer></script>
+</body>
+</html>
