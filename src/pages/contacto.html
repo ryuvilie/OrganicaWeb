@@ -31,85 +31,69 @@
   </header>
 
   <main class="container section">
-    <h1>Contacto</h1>
-    <p class="muted" style="max-width:720px">
-      ¿Dudas sobre productos, envíos o tu pedido? Escríbenos y te responderemos a la brevedad.
-    </p>
+  <h1>Contacto</h1>
+  <p class="muted" style="max-width:720px">
+    ¿Dudas sobre productos, envíos o tu pedido? Escríbenos y te responderemos a la brevedad.
+  </p>
 
-    <form id="formContacto" class="card" novalidate style="max-width:720px">
-      <!-- Nombre -->
-      <div class="field">
-        <label for="c-nombre">Nombre completo</label>
-        <input
-          id="c-nombre" name="nombre" type="text" autocomplete="name"
-          placeholder="Tu nombre y apellido"
-          required minlength="2"
-          aria-describedby="c-nombre-hint c-nombre-error"
-        >
-        <small id="c-nombre-hint" class="hint">Mínimo 2 caracteres (solo letras y espacios).</small>
-        <small id="c-nombre-error" class="error" hidden></small>
-      </div>
-
-      <!-- Correo -->
-      <div class="field">
-        <label for="c-email">Correo</label>
-        <input
-          id="c-email" name="email" type="email" inputmode="email" autocomplete="email"
-          placeholder="nombre@dominio.cl"
-          required
-          aria-describedby="c-email-hint c-email-error"
-        >
-        <small id="c-email-hint" class="hint">Usa un correo con formato válido.</small>
-        <small id="c-email-error" class="error" hidden></small>
-      </div>
-
-      <!-- Asunto -->
-      <div class="field">
-        <label for="c-asunto">Asunto</label>
-        <input
-          id="c-asunto" name="asunto" type="text"
-          placeholder="Ej: Consulta por envío a Viña del Mar"
-          required minlength="3"
-          aria-describedby="c-asunto-hint c-asunto-error"
-        >
-        <small id="c-asunto-hint" class="hint">Sé breve y claro (mínimo 3 caracteres).</small>
-        <small id="c-asunto-error" class="error" hidden></small>
-      </div>
-
-      <!-- Mensaje -->
-      <div class="field">
-        <label for="c-mensaje">Mensaje</label>
-        <textarea
-          id="c-mensaje" name="mensaje" rows="5"
-          placeholder="Cuéntanos en detalle tu consulta"
-          required minlength="10"
-          aria-describedby="c-mensaje-hint c-mensaje-error"
-        ></textarea>
-        <small id="c-mensaje-hint" class="hint">Mínimo 10 caracteres.</small>
-        <small id="c-mensaje-error" class="error" hidden></small>
-      </div>
-
-      <!-- Mensaje global -->
-      <div id="c-form-msg" class="form-msg" aria-live="polite"></div>
-
-      <div style="display:flex;gap:.5rem;flex-wrap:wrap">
-        <button class="btn btn-primary" type="submit">Enviar</button>
-        <button class="btn btn-secondary" type="button" id="c-btnDemo">Autocompletar demo</button>
-      </div>
-    </form>
-  </main>
-
-  <footer>
-    <div class="container footer-inner">
-      <p>© <span id="y"></span> HuertoHogar — Frescura y sostenibilidad</p>
-      <nav aria-label="Secundaria">
-        <a href="#">Términos</a>
-        <a href="#">Privacidad</a>
-      </nav>
+  <form id="formContacto" class="card contact-card" novalidate>
+    <!-- Nombre -->
+    <div class="field">
+      <label for="c-nombre">Nombre completo</label>
+      <input
+        id="c-nombre" name="nombre" type="text" autocomplete="name"
+        placeholder="Tu nombre y apellido" required minlength="2"
+        aria-describedby="c-nombre-hint c-nombre-error">
+      <small id="c-nombre-hint" class="help">Mínimo 2 caracteres (solo letras y espacios).</small>
+      <small id="c-nombre-error" class="error" aria-live="polite"></small>
     </div>
-  </footer>
 
-  <!-- Scripts -->
-  <script src="../js/forms.js"></script>
-</body>
-</html>
+    <!-- Correo -->
+    <div class="field">
+      <label for="c-email">Correo</label>
+      <input
+        id="c-email" name="email" type="email" inputmode="email" autocomplete="email"
+        placeholder="nombre@dominio.cl" required
+        aria-describedby="c-email-hint c-email-error">
+      <small id="c-email-hint" class="help">Usa un correo con formato válido.</small>
+      <small id="c-email-error" class="error" aria-live="polite"></small>
+    </div>
+
+    <!-- Asunto -->
+    <div class="field">
+      <label for="c-asunto">Asunto</label>
+      <input
+        id="c-asunto" name="asunto" type="text"
+        placeholder="Ej: Consulta por envío a Viña del Mar" required minlength="3"
+        aria-describedby="c-asunto-hint c-asunto-error">
+      <small id="c-asunto-hint" class="help">Sé breve y claro (mínimo 3 caracteres).</small>
+      <small id="c-asunto-error" class="error" aria-live="polite"></small>
+    </div>
+
+    <!-- Mensaje -->
+    <div class="field">
+      <label for="c-mensaje">Mensaje</label>
+      <textarea
+        id="c-mensaje" name="mensaje" rows="5"
+        placeholder="Cuéntanos en detalle tu consulta" required minlength="10"
+        aria-describedby="c-mensaje-hint c-mensaje-error"></textarea>
+      <small id="c-mensaje-hint" class="help">Mínimo 10 caracteres.</small>
+      <small id="c-mensaje-error" class="error" aria-live="polite"></small>
+    </div>
+
+    <!-- Mensaje global -->
+    <div id="c-form-msg" class="success" hidden aria-live="polite"></div>
+
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit" id="c-btnEnviar">Enviar</button>
+      <button class="btn btn-secondary" type="button" id="c-btnDemo">Autocompletar demo</button>
+    </div>
+  </form>
+</main>
+
+<!-- …footer va igual… -->
+
+<!-- Scripts -->
+<script src="../js/forms.js"></script>
+<script src="../js/contacto.js"></script>
+

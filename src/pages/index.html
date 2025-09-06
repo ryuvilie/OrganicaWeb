@@ -42,62 +42,61 @@
           <a class="btn btn-primary" href="./catalogo.html">Ver catálogo</a>
         </div>
 
-        <!-- Imagen (desde src/pages a /public/img) => ../../public/img/... -->
         <figure class="hero__img">
-          <img src="../../public/img/hero.jpg" alt="Cosecha fresca de frutas y verduras">
+          <img src="https://media.istockphoto.com/id/1167322382/es/foto/verdura-org%C3%A1nica-madura-en-la-caja-de-madera.jpg?s=612x612&w=0&k=20&c=Uu9z2grTqkNGYzdoH-1m7uQaPzyn6Wnp7yWWvrgMnaw=" alt="Cosecha fresca de frutas y verduras">
         </figure>
       </div>
     </section>
 
-    <!-- DESTACADOS POR CATEGORÍA -->
-    <section aria-labelledby="cats-title" class="home-categories">
-      <div class="container">
-        <h2 id="cats-title">Categorías destacadas</h2>
-        <div class="grid">
-          <article class="card">
-            <h3>Frutas Frescas</h3>
-            <p>Manzanas Fuji, Naranjas Valencia, Plátanos Cavendish…</p>
-            <a class="btn btn-link" href="./catalogo.html?cat=frutas">Explorar</a>
-          </article>
-          <article class="card">
-            <h3>Verduras Orgánicas</h3>
-            <p>Zanahorias, Espinacas, Pimientos tricolores…</p>
-            <a class="btn btn-link" href="./catalogo.html?cat=verduras">Explorar</a>
-          </article>
-          <article class="card">
-            <h3>Productos Orgánicos</h3>
-            <p>Miel y granos como quinua orgánica.</p>
-            <a class="btn btn-link" href="./catalogo.html?cat=organicos">Explorar</a>
-          </article>
-          <article class="card">
-            <h3>Productos Lácteos</h3>
-            <p>Leche entera y derivados de granjas locales.</p>
-            <a class="btn btn-link" href="./catalogo.html?cat=lacteos">Explorar</a>
-          </article>
-        </div>
+    <!-- CATEGORÍAS (estáticas) -->
+    <section class="container section">
+      <h2>Categorías destacadas</h2>
+
+      <div class="grid-cats">
+        <article class="card cat-card">
+          <h3>Frutas Frescas</h3>
+          <a class="btn-link" href="./catalogo.html?cat=frutas">Explorar</a>
+        </article>
+
+        <article class="card cat-card">
+          <h3>Verduras Orgánicas</h3>
+          <a class="btn-link" href="./catalogo.html?cat=verduras">Explorar</a>
+        </article>
+
+        <article class="card cat-card">
+          <h3>Productos Orgánicos</h3>
+          <a class="btn-link" href="./catalogo.html?cat=organicos">Explorar</a>
+        </article>
+
+        <article class="card cat-card">
+          <h3>Productos Lácteos</h3>
+          <a class="btn-link" href="./catalogo.html?cat=lacteos">Explorar</a>
+        </article>
       </div>
     </section>
 
-    <!-- Video para cumplir rúbrica -->
-    <div class="video-wrapper">
-    <iframe
-    title="Video institucional HuertoHogar"
-    src="https://www.youtube.com/watch?v=8SS4Zdx1utc"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    referrerpolicy="strict-origin-when-cross-origin"
-    allowfullscreen
-    loading="lazy"></iframe>
-    </div>
+    <!-- Video para cumplir rúbrica (usar URL de embed) -->
+    <section class="container section">
+      <div class="video-wrapper">
+        <iframe
+          title="Video institucional HuertoHogar"
+          src="https://www.youtube.com/embed/8SS4Zdx1utc"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+          loading="lazy"></iframe>
+      </div>
+    </section>
   </main>
 
   <footer>
     <div class="container footer-inner">
-      <p>© <span id="y"></span> HuertoHogar — Frescura y sostenibilidad</p><br>
-      <p>Trabajo de Moira Guzman Y Briam Djesus</p>
+      <p>© <span id="y"></span> HuertoHogar — Frescura y sostenibilidad</p>
       <nav aria-label="Secundaria">
         <a href="#">Términos</a>
         <a href="#">Privacidad</a>
       </nav>
+      <small>Trabajo de Moira Guzmán y Briam Djesus</small>
     </div>
   </footer>
 
