@@ -126,7 +126,7 @@
         if(item){
           if(item.cantidad < p.stock) item.cantidad += 1;
         } else {
-          carrito.push({ id: p.id, nombre: p.nombre, precio: p.precio, cantidad: 1, stock: p.stock, unidad: p.unidad });
+          carrito.push({ id: p.id, nombre: p.nombre, precio: p.precio, cantidad: 1, stock: p.stock, unidad: p.unidad, img: p.img || '../public/img/placeholder.jpg' });
         }
         setCarrito(carrito);
         if(typeof actualizarBadge === 'function') actualizarBadge();

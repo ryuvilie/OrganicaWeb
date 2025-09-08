@@ -1,17 +1,21 @@
+// ==============================
+// cart.js — Carrito HuertoHogar
+// ==============================
+
 // ---- Utilidades base compartidas ----
-const $$ = (s, c=document) => c.querySelector(s);
+const $$  = (s, c=document) => c.querySelector(s);
 const $$$ = (s, c=document) => [...c.querySelectorAll(s)];
 const CLP = (n) => (n || 0).toLocaleString('es-CL');
 
-// Año footer
+// Año en footer
 const y = $$('#y'); if (y) y.textContent = new Date().getFullYear();
 
-// Carrito (LS)
+// ---- LocalStorage del carrito ----
 const KEY = 'carritoHuerto';
 const getCarrito = () => JSON.parse(localStorage.getItem(KEY) || '[]');
 const setCarrito = (c) => localStorage.setItem(KEY, JSON.stringify(c));
 
-// Badge header
+// ---- Badge del header ----
 function actualizarBadge(){
   const c = getCarrito();
   const total = c.reduce((a,i)=>a+i.cantidad,0);
@@ -21,31 +25,50 @@ function actualizarBadge(){
   else { badge.style.display='none'; }
 }
 
-// Elementos
-const tbody = $$('#carritoBody');
-const totalEl = $$('#total');
-const wrap = $$('#carritoWrap');
-const vacio = $$('#carritoVacio');
-const btnVaciar = $$('#btnVaciar');
-const btnConfirmar = $$('#btnConfirmar');
+// ==============================
+// Elementos DOM del carrito
+// ==============================
+const tbody       = $$('#carritoBody');
+const totalEl     = $$('#total');
+const wrap        = $$('#carritoWrap');
+const vacio       = $$('#carritoVacio');
+const btnVaciar   = $$('#btnVaciar');
+const btnConfirmar= $$('#btnConfirmar');
 
-// Render tabla
+// ==============================
+// Helper: obtener imagen del item
+// - Usa la guardada en el carrito (nuevo flujo)
+// - Si no existe, busca en DATA por id (para ítems antiguos)
+// - Si no hay, usa placeholder
+// ==============================
+function imagenDeItem(it){
+  if (it.img) return it.img;
+  const d = window.DATA?.productos?.find(p => p.id === it.id);
+  if (d?.img) return d.img;
+  return '../public/img/placeholder.jpg';
+}
+
+// ==============================
+// Render de tabla del carrito
+// ==============================
 function render(){
   const cart = getCarrito();
 
-  // Vacío
+  // Carrito vacío
   if(cart.length === 0){
-    wrap.style.display = 'none';
-    vacio.style.display = 'block';
+    if (wrap)  wrap.style.display = 'none';
+    if (vacio) vacio.style.display = 'block';
     actualizarBadge();
     return;
   } else {
-    wrap.style.display = 'block';
-    vacio.style.display = 'none';
+    if (wrap)  wrap.style.display = 'block';
+    if (vacio) vacio.style.display = 'none';
   }
 
-  tbody.innerHTML = cart.map((it, idx) => {
-    // Intentar leer stock/unidad desde DATA si existe
+  if (!tbody) return;
+
+  tbody.innerHTML = cart.map((it) => {
+    // Leer unidad/stock desde DATA si está disponible
     let unidad = 'unidad', stock = 9999;
     if (window.DATA && Array.isArray(DATA.productos)) {
       const d = DATA.productos.find(p => p.id === it.id);
@@ -56,14 +79,19 @@ function render(){
     return `
       <tr data-id="${it.id}">
         <td>
-          <strong>${it.nombre}</strong>
-          <div class="muted">ID: ${it.id}${unidad ? ` · ${unidad}` : ''}</div>
+          <div class="cart-prod">
+            <img class="cart-thumb" src="${imagenDeItem(it)}" alt="${it.nombre}">
+            <div>
+              <strong>${it.nombre}</strong>
+              <div class="muted">ID: ${it.id}${unidad ? ` · ${unidad}` : ''}</div>
+            </div>
+          </div>
         </td>
         <td>$${CLP(it.precio)}</td>
         <td>
           <div style="display:flex;gap:6px;align-items:center">
             <button class="btn btn-secondary btn-sm" data-act="menos" aria-label="Restar 1">−</button>
-            <input type="number" min="1" max="${stock}" value="${it.cantidad}" class="q-input" aria-label="Cantidad" 
+            <input type="number" min="1" max="${stock}" value="${it.cantidad}" class="q-input" aria-label="Cantidad"
                    style="width:64px;padding:.4rem;border:1px solid #e5e5e5;border-radius:8px;text-align:center">
             <button class="btn btn-primary btn-sm" data-act="mas" aria-label="Sumar 1">+</button>
           </div>
@@ -77,12 +105,14 @@ function render(){
 
   // Total
   const total = cart.reduce((a,i)=> a + (i.precio * i.cantidad), 0);
-  totalEl.textContent = CLP(total);
+  if (totalEl) totalEl.textContent = CLP(total);
 
   actualizarBadge();
 }
 
+// ==============================
 // Delegación de eventos en la tabla
+// ==============================
 tbody?.addEventListener('click', (e) => {
   const btn = e.target.closest('button');
   if(!btn) return;
@@ -141,7 +171,9 @@ tbody?.addEventListener('change', (e) => {
   }
 });
 
-// Vaciar
+// ==============================
+// Acciones: Vaciar / Confirmar
+// ==============================
 btnVaciar?.addEventListener('click', () => {
   if (confirm('¿Vaciar todo el carrito?')) {
     setCarrito([]);
@@ -149,7 +181,6 @@ btnVaciar?.addEventListener('click', () => {
   }
 });
 
-// Confirmar pedido (simulado)
 btnConfirmar?.addEventListener('click', () => {
   const cart = getCarrito();
   if (!cart.length) return alert('Tu carrito está vacío.');
@@ -159,5 +190,7 @@ btnConfirmar?.addEventListener('click', () => {
   render();
 });
 
+// ==============================
 // Init
+// ==============================
 render();
