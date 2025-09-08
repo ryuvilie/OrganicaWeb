@@ -1,4 +1,4 @@
-/* forms.js - Validaciones JS personalizadas (DSY1104)
+/* forms.js - Validaciones JS personalizadas
    - Mensajes de error junto a cada input
    - Sugerencias (hints) via <small>.hint
    - Accesible (aria-invalid, aria-describedby)
