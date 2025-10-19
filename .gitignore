@@ -1,2 +1,11 @@
-.env
-.env.local
+# Node (frontend)
+frontend/node_modules/
+frontend/build/
+frontend/.env
+
+# Tests / cobertura
+coverage/
+
+# SO
+.DS_Store
+Thumbs.db
