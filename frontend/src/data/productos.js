@@ -58,7 +58,68 @@ const productos = [
     oferta: false,
     stock: 15,
     imagen: "/assets/img/hero.png"
+  },
+    {
+    id: 7,
+    nombre: "Palta Hass",
+    descripcion: "Cremosa, rica en omega 3 y cultivada en la zona central de Chile.",
+    precio: 3200,
+    categoria: "Frutas",
+    oferta: false,
+    stock: 25,
+    imagen: "/assets/img/hero.png"
+  },
+  {
+    id: 8,
+    nombre: "Zanahorias Orgánicas",
+    descripcion: "Recién cosechadas, ideales para jugos, ensaladas y sopas.",
+    precio: 1400,
+    categoria: "Verduras",
+    oferta: true,
+    stock: 40,
+    imagen: "/assets/img/hero.png"
+  },
+  {
+    id: 9,
+    nombre: "Avena Integral",
+    descripcion: "Avena 100% natural, sin azúcar añadida, fuente de fibra y energía.",
+    precio: 2800,
+    categoria: "Otros",
+    oferta: false,
+    stock: 30,
+    imagen: "/assets/img/hero.png"
+  },
+  {
+    id: 10,
+    nombre: "Mermelada de Frutilla Artesanal",
+    descripcion: "Elaborada con frutas orgánicas y endulzada con miel natural.",
+    precio: 3900,
+    categoria: "Otros",
+    oferta: true,
+    stock: 18,
+    imagen: "/assets/img/hero.png"
+  },
+  {
+    id: 11,
+    nombre: "Nueces Chilenas",
+    descripcion: "Ricas en proteínas y antioxidantes, perfectas para snacks o repostería.",
+    precio: 5200,
+    categoria: "Semillas",
+    oferta: false,
+    stock: 22,
+    imagen: "/assets/img/hero.png"
+  },
+  {
+    id: 12,
+    nombre: "Espinaca Baby",
+    descripcion: "Hojas tiernas y frescas, ideales para ensaladas o salteadas.",
+    precio: 1800,
+    categoria: "Verduras",
+    oferta: false,
+    stock: 35,
+    imagen: "/assets/img/hero.png"
   }
+
 ];
 
 export default productos;
