@@ -1,97 +1,212 @@
+/* Catalogo.css */
+
+/* Contenedor principal del catálogo */
 .catalogo-container {
-  padding: 2rem;
+  max-width: 1200px; /* Ancho máximo para el contenido */
+  margin: 0 auto; /* Centrar el contenedor */
+  padding: 2rem 1rem; /* Padding en todos los lados, un poco menos lateral para móviles */
+}
+
+/* Título principal del catálogo */
+h1 { /* Cambié de .titulo-catalogo a h1, ya que en el JSX el h1 tiene el texto */
   text-align: center;
+  font-size: 2.2rem; /* Un poco más grande para el título principal */
+  font-weight: 800;
+  color: #2e7d32; /* Tu color principal */
+  margin-bottom: 2.5rem; /* Más espacio debajo del título */
 }
 
-.titulo-catalogo {
-  color: #2e7d32;
-  font-weight: 700;
+/* --- ESTILOS PARA LA BARRA DE CONTROLES (NUEVO) --- */
+.controles-catalogo {
+  display: flex;
+  flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+  justify-content: space-between; /* Espacia los elementos */
+  align-items: center; /* Alinea verticalmente */
+  gap: 1.5rem; /* Espacio entre los elementos de control */
   margin-bottom: 2rem;
+  padding: 1rem 1.5rem; /* Padding interno de la barra */
+  background-color: #f8f8f8; /* Un fondo muy ligero, similar a tu #fffefb pero más neutro */
+  border: 1px solid #dcd8c8; /* Borde similar al de tus cards */
+  border-radius: 12px; /* Bordes redondeados como tus cards */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Sombra más sutil */
 }
 
-.grid-catalogo {
+/* Estilos para el input de búsqueda */
+.busqueda-input {
+  padding: 0.75rem 1rem;
+  border: 1px solid #dcd8c8; /* Borde suave */
+  border-radius: 8px; /* Bordes redondeados */
+  font-size: 1rem;
+  width: 100%; /* Ocupa todo el ancho disponible en su contenedor */
+  max-width: 280px; /* Ancho máximo para el input */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  color: #3e2723; /* Color de texto similar al de tus productos */
+  background-color: #fffefb;
+}
+
+.busqueda-input::placeholder {
+  color: #8c8c8c; /* Color del placeholder */
+}
+
+.busqueda-input:focus {
+  outline: none;
+  border-color: #2e7d32; /* Color de enfoque, tu verde principal */
+  box-shadow: 0 0 0 0.2rem rgba(46, 125, 50, 0.25); /* Sombra suave con tu color */
+}
+
+/* Contenedor de los botones de categoría */
+.filtros-categoria {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem; /* Espacio entre los botones, un poco más que antes */
+}
+
+/* Botones de filtro de categoría (adaptados de .filtro-btn existente) */
+/* Se reusan los estilos de .filtro-btn y se agregan las clases de .filtros-categoria */
+/* NO DUPLICAR .filtro-btn, ya lo tienes abajo, solo asegúrate que se aplique */
+
+/* Estilos para el selector de ordenamiento */
+.ordenamiento {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.ordenamiento label {
+  font-size: 1rem;
+  color: #3e2723; /* Color de texto consistente */
+  font-weight: 500;
+  white-space: nowrap; /* Evita que la etiqueta "Ordenar por:" se rompa */
+}
+
+.ordenar-select {
+  padding: 0.75rem 1rem;
+  border: 1px solid #dcd8c8; /* Borde suave */
+  border-radius: 8px; /* Bordes redondeados */
+  font-size: 1rem;
+  background-color: #fffefb;
+  color: #3e2723;
+  cursor: pointer;
+  appearance: none; /* Elimina estilos por defecto del select en algunos navegadores */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  /* Icono de flecha personalizada con tu color principal */
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%232e7d32%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13%205.4L146.2%20202.7%2018.8%2074.8c-3.1-3.1-7.1-4.7-11.2-4.7H17.6c-4.1%200-8.2%201.5-11.3%204.7-6.2%206.2-6.2%2016.4%200%2022.6l136.9%20136.9c6.2%206.2%2016.4%206.2%2022.6%200l136.9-136.9c6.3-6.2%206.3-16.4%200-22.6z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat;
+  background-position: right 0.7em top 50%, 0 0;
+  background-size: 0.65em auto, 100%;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ordenar-select:focus {
+  outline: none;
+  border-color: #2e7d32;
+  box-shadow: 0 0 0 0.2rem rgba(46, 125, 50, 0.25);
+}
+/* --- FIN ESTILOS PARA LA BARRA DE CONTROLES --- */
+
+
+/* Estilos existentes para la cuadrícula de productos */
+.productos-grid { /* Renombrado de .grid-catalogo a .productos-grid para consistencia con JSX */
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Min-width un poco más grande */
   gap: 1.5rem;
+  margin-top: 2.5rem; /* Un poco más de margen superior */
+  align-items: stretch;
 }
 
-.card-producto {
+/* Estilos para las tarjetas de producto */
+.card-producto { /* Ya existía, solo se mantiene */
   background-color: #fffefb;
   border: 1px solid #dcd8c8;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
   padding: 1rem;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex; /* Añadido para mejor control del contenido */
+  flex-direction: column; /* Contenido apilado */
 }
 
-.card-producto:hover {
+.card-producto:hover { /* Ya existía, solo se mantiene */
   transform: scale(1.03);
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.12);
 }
 
-.producto-imagen {
+.producto-imagen { /* Ya existía, solo se mantiene */
   width: 100%;
   height: 180px;
   object-fit: cover;
   border-radius: 8px;
 }
 
-.producto-info h3 {
+.producto-info h3 { /* Ya existía, solo se mantiene */
   color: #3e2723;
   margin: 0.8rem 0 0.4rem;
 }
 
-.producto-precio {
+.producto-precio { /* Ya existía, solo se mantiene */
   color: #2e7d32;
   font-weight: bold;
+  margin-bottom: 0.8rem; /* Añadido para separar del botón */
 }
 
-.producto-acciones {
+.producto-acciones { /* Ya existía, solo se mantiene */
   display: flex;
   justify-content: space-around;
-  margin-top: 0.8rem;
+  margin-top: auto; /* Empuja las acciones al final de la tarjeta */
 }
 
-.btn-agregar {
+.btn-agregar { /* Ya existía, solo se mantiene */
   background-color: #2e7d32;
   color: white;
   border: none;
-  padding: 0.4rem 1rem;
+  padding: 0.6rem 1.2rem; /* Un poco más de padding para los botones */
   border-radius: 6px;
   cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease;
 }
 
-.btn-agregar:hover {
+.btn-agregar:hover { /* Ya existía, solo se mantiene */
   background-color: #388e3c;
 }
 
-.btn-eliminar {
+.btn-eliminar { /* Ya existía, solo se mantiene */
   background-color: #d32f2f;
   color: white;
   border: none;
-  padding: 0.4rem 1rem;
+  padding: 0.6rem 1.2rem; /* Un poco más de padding para los botones */
   border-radius: 6px;
   cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease;
 }
 
-.btn-eliminar:hover {
+.btn-eliminar:hover { /* Ya existía, solo se mantiene */
   background-color: #b71c1c;
 }
-.filtros {
-  text-align: center;
-  margin-bottom: 1.5rem;
+
+/* Estilos para los botones de filtro de categoría (Ya existían, movidos para mantener orden) */
+.filtros { /* Esta clase ahora contendrá solo los botones, si la sigues usando por separado */
+  /* text-align: center; (Esto puede ir en .controles-catalogo si se usan flexbox) */
+  /* margin-bottom: 1.5rem; (Esto también se maneja mejor con gap en .controles-catalogo) */
+  display: flex; /* Asegura que los botones se comporten bien dentro de .filtros-categoria */
+  flex-wrap: wrap;
+  gap: 0.6rem;
 }
 
 .filtro-btn {
   background: none;
   border: 1px solid #2e7d32;
-  border-radius: 6px;
+  border-radius: 20px; /* Bordes más redondeados para un look más moderno */
   color: #2e7d32;
   font-weight: 600;
-  margin: 0 0.4rem;
-  padding: 0.5rem 1rem;
+  /* margin: 0 0.4rem; (Removido, ahora el gap en .filtros-categoria lo maneja) */
+  padding: 0.6rem 1.2rem; /* Más padding para que los botones sean más clickables */
   cursor: pointer;
   transition: all 0.2s ease;
+  font-size: 0.9rem; /* Ajuste de tamaño */
+  white-space: nowrap; /* Evita que el texto de los botones se rompa */
 }
 
 .filtro-btn:hover {
@@ -103,23 +218,48 @@
   background-color: #2e7d32;
   color: white;
 }
-.catalogo-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-}
 
-.productos-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
-  align-items: stretch;
-}
-
-h1 {
+/* Mensaje de no encontrado */
+.catalogo-container p {
   text-align: center;
-  font-size: 2rem;
-  font-weight: 800;
-  color: #2e7d32;
+  font-size: 1.1rem;
+  color: #6c757d;
+  margin-top: 3rem;
+  grid-column: 1 / -1; /* Para que ocupe todo el ancho del grid */
+}
+
+/* Media Queries para responsividad */
+@media (max-width: 768px) {
+  .controles-catalogo {
+    flex-direction: column; /* Apila los controles en pantallas pequeñas */
+    align-items: stretch; /* Estira los elementos para ocupar todo el ancho */
+  }
+
+  .busqueda-input,
+  .ordenar-select {
+    max-width: none; /* Permite que el input y select ocupen todo el ancho */
+  }
+
+  .filtros-categoria {
+    justify-content: center; /* Centra los botones de categoría */
+  }
+
+  .ordenamiento {
+    justify-content: center; /* Centra el selector de ordenamiento */
+  }
+
+  h1 {
+    font-size: 1.8rem; /* Ajusta el tamaño del título en móviles */
+  }
+}
+
+@media (max-width: 480px) {
+  .catalogo-container {
+    padding: 1.5rem 0.8rem; /* Más padding en pantallas extra pequeñas */
+  }
+
+  .filtro-btn {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.85rem;
+  }
 }

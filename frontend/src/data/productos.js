@@ -7,7 +7,7 @@ const productos = [
     categoria: "Frutas",
     oferta: false,
     stock: 30,
-    imagen: "/assets/img/hero.png"
+    imagen: "/assets/img/ManzanaOrganica.png"
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ const productos = [
     categoria: "Verduras",
     oferta: false,
     stock: 25,
-    imagen: "/assets/img/hero.png"
+    imagen: "/assets/img/Lechuga.png"
   },
   {
     id: 3,
@@ -27,7 +27,7 @@ const productos = [
     categoria: "Otros",
     oferta: true, // ✅ en oferta
     stock: 10,
-    imagen: "/assets/img/hero.png"
+    imagen: "/assets/img/Miel.png"
   },
   {
     id: 4,
@@ -37,7 +37,7 @@ const productos = [
     categoria: "Verduras",
     oferta: false,
     stock: 40,
-    imagen: "/assets/img/hero.png"
+    imagen: "/assets/img/TCherry.png"
   },
   {
     id: 5,
@@ -47,7 +47,7 @@ const productos = [
     categoria: "Frutas",
     oferta: true, // ✅ en oferta
     stock: 20,
-    imagen: "/assets/img/hero.png"
+    imagen: "/assets/img/Fruti.png"
   },
   {
     id: 6,
@@ -57,7 +57,7 @@ const productos = [
     categoria: "Semillas",
     oferta: false,
     stock: 15,
-    imagen: "/assets/img/hero.png"
+    imagen: "/assets/img/Mix.png"
   },
     {
     id: 7,
@@ -67,7 +67,7 @@ const productos = [
     categoria: "Frutas",
     oferta: false,
     stock: 25,
-    imagen: "/assets/img/hero.png"
+    imagen: "/assets/img/Palta.png"
   },
   {
     id: 8,
@@ -77,7 +77,7 @@ const productos = [
     categoria: "Verduras",
     oferta: true,
     stock: 40,
-    imagen: "/assets/img/hero.png"
+    imagen: "/assets/img/Zana.png"
   },
   {
     id: 9,
@@ -87,7 +87,7 @@ const productos = [
     categoria: "Otros",
     oferta: false,
     stock: 30,
-    imagen: "/assets/img/hero.png"
+    imagen: "/assets/img/Avena.png"
   },
   {
     id: 10,
@@ -97,7 +97,7 @@ const productos = [
     categoria: "Otros",
     oferta: true,
     stock: 18,
-    imagen: "/assets/img/hero.png"
+    imagen: "/assets/img/MermeladaFruti.png"
   },
   {
     id: 11,
@@ -107,7 +107,7 @@ const productos = [
     categoria: "Semillas",
     oferta: false,
     stock: 22,
-    imagen: "/assets/img/hero.png"
+    imagen: "/assets/img/NuecesChile.png"
   },
   {
     id: 12,
@@ -117,7 +117,7 @@ const productos = [
     categoria: "Verduras",
     oferta: false,
     stock: 35,
-    imagen: "/assets/img/hero.png"
+    imagen: "/assets/img/Espinaca.png"
   }
 
 ];
