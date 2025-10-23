@@ -1,0 +1,77 @@
+.footer {
+  background: linear-gradient(180deg, #f1f8e9 0%, #e8f5e9 100%);
+  color: #3e2723;
+  border-top: 2px solid #c8e6c9;
+  padding-top: 1.5rem;
+  font-family: "Poppins", sans-serif;
+  margin-top: 2rem;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 1rem 2rem;
+  gap: 1rem;
+}
+
+/* Sección izquierda */
+.footer-brand h2 {
+  color: #2e7d32;
+  font-weight: 700;
+  margin: 0;
+}
+
+.footer-brand p {
+  margin: 0.3rem 0 0;
+  font-size: 0.9rem;
+  color: #5d4037;
+}
+
+/* Sección central */
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+
+.footer-links a {
+  color: #3e2723;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: #2e7d32;
+  transform: translateY(-2px);
+}
+
+/* Sección derecha */
+.footer-social {
+  display: flex;
+  gap: 1rem;
+}
+
+.footer-social img {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) saturate(100%) invert(32%) sepia(95%) saturate(365%) hue-rotate(77deg) brightness(90%) contrast(85%);
+  transition: transform 0.2s ease;
+}
+
+.footer-social img:hover {
+  transform: scale(1.1);
+  filter: brightness(0) saturate(100%) invert(47%) sepia(69%) saturate(430%) hue-rotate(67deg) brightness(95%) contrast(85%);
+}
+
+/* Línea inferior */
+.footer-bottom {
+  text-align: center;
+  background-color: #dcedc8;
+  padding: 0.6rem;
+  font-size: 0.85rem;
+  color: #4e342e;
+  border-top: 1px solid #c5e1a5;
+}

@@ -1,5 +1,0 @@
-[
-  { "id": "p1", "name": "Manzana Fuji", "price": 990, "image": "/assets/img/products/manzana.jpg", "category": "frutas", "stock": 50 },
-  { "id": "p2", "name": "Palta Hass", "price": 1990, "image": "/assets/img/products/palta.jpg", "category": "frutas", "stock": 30 },
-  { "id": "p3", "name": "Zanahoria", "price": 850, "image": "/assets/img/products/zanahoria.jpg", "category": "verduras", "stock": 80 }
-]

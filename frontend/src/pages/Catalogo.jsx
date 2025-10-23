@@ -1,30 +1,41 @@
-import { useEffect, useState } from 'react';
-import { apiProducts } from '../api/products';
+import React, { useState } from "react";
+import productos from "../data/productos";
+import ProductCard from "../components/ProductCard";
+import "../styles/Catalogo.css";
 
-export default function Catalogo(){
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
+const Catalogo = () => {
+  const [categoria, setCategoria] = useState("Todos");
 
-  useEffect(() => {
-    let alive = true;
-    apiProducts.list().then(data => {
-      if (alive) setItems(data);
-    }).finally(() => {
-      if (alive) setLoading(false);
-    });
-    return () => { alive = false; };
-  }, []);
+  const categorias = ["Todos", "Frutas", "Verduras", "Semillas", "Otros"];
 
-  if (loading) return <p>Cargando productos…</p>;
+  const productosFiltrados =
+    categoria === "Todos"
+      ? productos
+      : productos.filter((p) => p.categoria === categoria);
 
   return (
-    <>
-      <h3>Catálogo</h3>
-      <ul>
-        {items.map(p => (
-          <li key={p.id || p._id}>{p.name} — ${p.price}</li>
+    <main className="catalogo-container">
+      <h1>Catálogo de Productos</h1>
+
+      <div className="filtros">
+        {categorias.map((cat) => (
+          <button
+            key={cat}
+            className={`filtro-btn ${categoria === cat ? "activo" : ""}`}
+            onClick={() => setCategoria(cat)}
+          >
+            {cat}
+          </button>
         ))}
-      </ul>
-    </>
+      </div>
+
+      <div className="productos-grid">
+        {productosFiltrados.map((producto) => (
+          <ProductCard key={producto.id} producto={producto} />
+        ))}
+      </div>
+    </main>
   );
-}
+};
+
+export default Catalogo;

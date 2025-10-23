@@ -1,0 +1,93 @@
+.product-card {
+  position: relative;
+  background-color: #fff;
+  border: 1px solid #c8e6c9;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.product-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.product-nombre {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2e7d32;
+  margin: 0.4rem 0;
+}
+
+.product-desc {
+  font-size: 0.85rem;
+  color: #4e342e;
+  margin-bottom: 0.4rem;
+}
+
+.product-categoria {
+  font-size: 0.8rem;
+  color: #6d4c41;
+  margin-bottom: 0.5rem;
+}
+
+.product-precio {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #2e7d32;
+  margin-bottom: 0.6rem;
+}
+
+.precio-antiguo {
+  color: #9e9e9e;
+  text-decoration: line-through;
+  margin-right: 6px;
+}
+
+.precio-oferta {
+  color: #c62828;
+  font-weight: 800;
+}
+
+.btn-agregar {
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-agregar:hover {
+  background-color: #388e3c;
+  transform: scale(1.05);
+}
+
+.badge-oferta {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #c62828;
+  color: white;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: 5px;
+  font-size: 0.8rem;
+}

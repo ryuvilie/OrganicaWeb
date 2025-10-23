@@ -1,0 +1,117 @@
+.registro-container {
+  background-color: #f9fff9;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Encabezado */
+.registro-hero {
+  text-align: center;
+  padding: 3rem 1rem 1rem;
+  background-color: #e8f5e9;
+  border-bottom: 2px solid #c8e6c9;
+  width: 100%;
+}
+
+.registro-hero h1 {
+  color: #2e7d32;
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.registro-hero p {
+  color: #4e342e;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Formulario */
+.registro-form {
+  background-color: #ffffff;
+  border: 1px solid #c8e6c9;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin: 2rem auto;
+  width: 90%;
+  max-width: 500px;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.form-group label {
+  color: #2e7d32;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.form-group input {
+  padding: 0.8rem;
+  border: 1px solid #c8e6c9;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #2e7d32;
+  box-shadow: 0 0 4px rgba(46, 125, 50, 0.3);
+}
+
+.btn-enviar {
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  width: 100%;
+}
+
+.btn-enviar:hover {
+  background-color: #388e3c;
+  transform: scale(1.02);
+}
+
+.form-feedback {
+  margin-top: 1rem;
+  font-size: 1rem;
+  text-align: center;
+  color: #2e7d32;
+  font-weight: 500;
+}
+
+/* Cambiar entre login y registro */
+.switch-mode {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.switch-mode p {
+  color: #4e342e;
+  font-size: 0.95rem;
+}
+
+.switch-mode button {
+  background: none;
+  border: none;
+  color: #2e7d32;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.switch-mode button:hover {
+  color: #388e3c;
+}
