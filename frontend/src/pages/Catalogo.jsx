@@ -1,34 +1,45 @@
 import React, { useState } from "react";
+import { useSearchParams } from "react-router-dom"; // 👈 nuevo
 import productos from "../data/productos";
 import ProductCard from "../components/ProductCard";
 import "../styles/Catalogo.css";
 
 const Catalogo = () => {
+  // estado local (por si el usuario cambia de categoría con los chips)
   const [categoria, setCategoria] = useState("Todos");
-  const [terminoBusqueda, setTerminoBusqueda] = useState(""); // Mantendremos este por si lo quieres usar más adelante
-  const [ordenarPor, setOrdenarPor] = useState("defecto"); // Nuevo estado para el ordenamiento
+  const [terminoBusqueda, setTerminoBusqueda] = useState("");
+  const [ordenarPor, setOrdenarPor] = useState("defecto");
 
   const categorias = ["Todos", "Frutas", "Verduras", "Semillas", "Otros"];
   const opcionesOrdenamiento = [
     { valor: "defecto", etiqueta: "Ordenar por defecto" },
     { valor: "precio-asc", etiqueta: "Precio: Más barato" },
     { valor: "precio-desc", etiqueta: "Precio: Más caro" },
-    { valor: "nombre-asc", etiqueta: "Nombre: A-Z" }, // Opcional
-    { valor: "nombre-desc", etiqueta: "Nombre: Z-A" }, // Opcional
+    { valor: "nombre-asc", etiqueta: "Nombre: A-Z" },
+    { valor: "nombre-desc", etiqueta: "Nombre: Z-A" },
   ];
 
-  // 1. Filtrar por categoría
-  let productosActuales =
-    categoria === "Todos"
-      ? productos
-      : productos.filter((p) => p.categoria === categoria);
+  // 👇 Leer ?cat=frutas|verduras|semillas desde la URL
+  const [searchParams] = useSearchParams();
+  const catParam = (searchParams.get("cat") || "").toLowerCase();
+  const mapCat = { frutas: "Frutas", verduras: "Verduras", semillas: "Semillas", otros: "Otros", todas: "Todos" };
+  const categoriaURL = mapCat[catParam]; // undefined si no viene o no coincide
 
-  // 2. Filtrar por término de búsqueda (si se mantiene)
+  // 👇 categoría efectiva: si viene por URL, se usa; si no, la del estado
+  const categoriaActiva = categoriaURL || categoria;
+
+  // 1) Filtrar por categoría (usando la efectiva)
+  let productosActuales =
+    categoriaActiva === "Todos"
+      ? productos
+      : productos.filter((p) => p.categoria === categoriaActiva);
+
+  // 2) Filtrar por búsqueda (nombre)
   productosActuales = productosActuales.filter((producto) =>
     producto.nombre.toLowerCase().includes(terminoBusqueda.toLowerCase())
   );
 
-  // 3. Aplicar ordenamiento
+  // 3) Ordenar
   const productosFiltradosOrdenados = [...productosActuales].sort((a, b) => {
     switch (ordenarPor) {
       case "precio-asc":
@@ -36,12 +47,11 @@ const Catalogo = () => {
       case "precio-desc":
         return b.precio - a.precio;
       case "nombre-asc":
-        return a.nombre.localeCompare(b.nombre);
+        return a.nombre.localeCompare(b.nombre, "es");
       case "nombre-desc":
-        return b.nombre.localeCompare(a.nombre);
-      case "defecto":
+        return b.nombre.localeCompare(a.nombre, "es");
       default:
-        return 0; // No cambia el orden si es "defecto" o no reconocido
+        return 0;
     }
   });
 
@@ -49,8 +59,8 @@ const Catalogo = () => {
     <main className="catalogo-container">
       <h1>Catálogo de Productos</h1>
 
-      <div className="controles-catalogo"> {/* Nuevo contenedor para organizar */}
-        {/* Input de Búsqueda por Texto (si lo quieres mantener) */}
+      <div className="controles-catalogo">
+        {/* Buscar */}
         <div className="busqueda">
           <input
             type="text"
@@ -61,15 +71,15 @@ const Catalogo = () => {
           />
         </div>
 
-        {/* Filtros por Categoría */}
+        {/* Chips de categoría (marcamos activo con la categoría efectiva) */}
         <div className="filtros-categoria">
           {categorias.map((cat) => (
             <button
               key={cat}
-              className={`filtro-btn ${categoria === cat ? "activo" : ""}`}
+              className={`filtro-btn ${categoriaActiva === cat ? "activo" : ""}`}
               onClick={() => {
-                setCategoria(cat);
-                setTerminoBusqueda(""); // Opcional: limpiar búsqueda al cambiar de categoría
+                setCategoria(cat);            // actualiza el estado si el usuario cambia
+                setTerminoBusqueda("");       // opcional: limpiar búsqueda
               }}
             >
               {cat}
@@ -77,7 +87,7 @@ const Catalogo = () => {
           ))}
         </div>
 
-        {/* Selector de Ordenamiento */}
+        {/* Ordenar */}
         <div className="ordenamiento">
           <label htmlFor="ordenarPor">Ordenar por:</label>
           <select
@@ -93,7 +103,7 @@ const Catalogo = () => {
             ))}
           </select>
         </div>
-      </div> {/* Fin de controles-catalogo */}
+      </div>
 
       <div className="productos-grid">
         {productosFiltradosOrdenados.length > 0 ? (
