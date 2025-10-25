@@ -26,6 +26,9 @@ module.exports = function (config) {
             use: ['style-loader', 'css-loader']
           }
         ]
+      },
+      resolve: {
+        extensions: ['.js', '.jsx']
       }
     },
     reporters: ['progress', 'kjhtml'],
