@@ -1,12 +1,10 @@
 // src/tests/catalogo.test.js
-import React from 'react';
+import React, { act } from 'react'; // 👈 IMPORTAR act DESDE 'react'
 import { createRoot } from 'react-dom/client';
-// 👈 Importar ACT para gestionar el renderizado de React 18
-import { act } from 'react-dom/test-utils'; 
 import { MemoryRouter } from 'react-router-dom';
 import Catalogo from '../pages/Catalogo.jsx';
 // Importación corregida del Contexto
-import { CartContext } from '../context/CartContext.jsx'; 
+import { CartContext } from '../context/CartContext.jsx';
 
 describe('Pruebas básicas del componente Catalogo.jsx', () => {
   let container;
