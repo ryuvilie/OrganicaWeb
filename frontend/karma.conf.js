@@ -49,13 +49,11 @@ module.exports = function (config) {
       }
     },
 
-    // Reporting
-    reporters: ['progress', 'kjhtml'],
+    reporters: ['progress', 'kjhtml', 'coverage'],
+    coverageReporter: {
+      type: 'html',
+      dir: 'coverage/'
+    }
 
-    // Navegadores a usar
-    browsers: ['ChromeHeadless'],
-    
-    // Ejecutar una sola vez (false para modo watch)
-    singleRun: false
   });
 };

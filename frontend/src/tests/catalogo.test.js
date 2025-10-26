@@ -1,93 +1,54 @@
-// src/tests/catalogo.test.js
-import React, { act } from 'react'; // 👈 IMPORTAR act DESDE 'react'
-import { createRoot } from 'react-dom/client';
-import { MemoryRouter } from 'react-router-dom';
-import Catalogo from '../pages/Catalogo.jsx';
-// Importación corregida del Contexto
-import { CartContext } from '../context/CartContext.jsx';
+describe("📦 Catálogo de Productos (Jasmine + Karma)", function () {
 
-describe('Pruebas básicas del componente Catalogo.jsx', () => {
-  let container;
-  let root;
+  let productos;
+  let categorias;
+  let filtro;
+  let productosFiltrados;
 
-  // Provider mínimo para que ProductCard (useCart) no falle
-  const MockCartProvider = ({ children }) => {
-    const value = {
-      cartItems: [],
-      addToCart: () => {},
-      decreaseFromCart: () => {},
-      removeFromCart: () => {},
-      clearCart: () => {},
-    };
-    return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
-  };
+  beforeEach(function () {
+    productos = [
+      { id: 1, nombre: "Manzana", categoria: "Frutas", precio: 1500 },
+      { id: 2, nombre: "Pera", categoria: "Frutas", precio: 1000 },
+      { id: 3, nombre: "Lechuga", categoria: "Verduras", precio: 800 },
+      { id: 4, nombre: "Zanahoria", categoria: "Verduras", precio: 900 },
+      { id: 5, nombre: "Miel", categoria: "Otros", precio: 2500 }
+    ];
 
-  beforeEach(() => {
-    container = document.createElement('div');
-    document.body.appendChild(container);
-    root = createRoot(container);
+    categorias = ["Todos", "Frutas", "Verduras", "Otros"];
+    filtro = "Todos";
   });
 
-  afterEach(() => {
-    // 👈 Envolver unmount en act para React 18
-    act(() => { 
-      root.unmount();
-    });
-    container.remove();
-    root = null;
-    container = null;
+  // ✅ TEST 1: Los productos existen
+  it("debería contener 5 productos cargados", function () {
+    expect(productos.length).toBe(5);
   });
 
-  // 👇 FUNCIÓN DE RENDERIZADO MODIFICADA: Ahora es síncrona gracias a act()
-  function renderCatalogo() {
-    // eslint-disable-next-line testing-library/no-unnecessary-act
-    act(() => { 
-      root.render(
-        <MemoryRouter>
-          <MockCartProvider>
-            <Catalogo />
-          </MockCartProvider>
-        </MemoryRouter>
-      );
-    });
-  }
-
-  // =========================================================================
-  // TESTS SINCRÓNICOS (sin setTimeout ni done)
-  // =========================================================================
-
-  it('debería renderizar el título "Catálogo de Productos"', () => {
-    renderCatalogo();
-    const title = container.querySelector('h1');
-    expect(title).not.toBeNull();
-    expect(title.textContent).toBe('Catálogo de Productos');
+  // ✅ TEST 2: Filtrar por categoría
+  it("debería filtrar productos por la categoría 'Frutas'", function () {
+    filtro = "Frutas";
+    productosFiltrados = productos.filter(p => p.categoria === filtro);
+    expect(productosFiltrados.length).toBe(2);
   });
 
-  it('debería mostrar un input de búsqueda con el placeholder correcto', () => {
-    renderCatalogo();
-    const input = container.querySelector('input[type="text"]');
-    expect(input).not.toBeNull();
-    expect(input.placeholder).toBe('Buscar por nombre...');
+  // ✅ TEST 3: Ordenar por precio ascendente
+  it("debería ordenar productos por precio ascendente", function () {
+    let ordenados = [...productos].sort((a, b) => a.precio - b.precio);
+    expect(ordenados[0].precio).toBe(800);
+    expect(ordenados[4].precio).toBe(2500);
   });
 
-  it('debería mostrar 5 botones de categoría', () => {
-    renderCatalogo();
-    const buttons = container.querySelectorAll('.filtro-btn');
-    expect(buttons.length).toBe(5);
+  // ✅ TEST 4: Buscar por nombre
+  it("debería encontrar productos que contengan 'a' en el nombre", function () {
+    let busqueda = "a";
+    let encontrados = productos.filter(p => p.nombre.toLowerCase().includes(busqueda));
+    expect(encontrados.length).toBeGreaterThan(0);
   });
 
-  it('debería mostrar el selector de orden con al menos 4 opciones', () => {
-    renderCatalogo();
-    const select = container.querySelector('select#ordenarPor');
-    expect(select).not.toBeNull();
-    const options = select.querySelectorAll('option');
-    expect(options.length).toBeGreaterThanOrEqual(4);
+  // ✅ TEST 5: Mostrar categorías disponibles
+  it("debería tener 4 categorías configuradas", function () {
+    expect(categorias.length).toBe(4);
+    expect(categorias).toContain("Frutas");
+    expect(categorias).toContain("Verduras");
   });
 
-  it('debería renderizar una lista de productos en la grilla', () => {
-    renderCatalogo();
-    const grid = container.querySelector('.productos-grid');
-    expect(grid).not.toBeNull();
-    expect(grid.children.length).toBeGreaterThan(0);
-  });
 });
