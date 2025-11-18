@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
 
-// ⚠️ CAMBIO REALIZADO: Ahora CartContext se exporta con nombre
 export const CartContext = createContext(); 
 export const useCart = () => useContext(CartContext);
 

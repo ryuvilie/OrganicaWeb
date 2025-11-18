@@ -19,11 +19,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/contacto" element={<Contacto />} />
         <Route path="/productos" element={<Productos />} />
-        <Route path="/catalogo" element={<Catalogo />} /> {/* 👈 agregado */}
+        <Route path="/catalogo" element={<Catalogo />} /> 
         <Route path="/carrito" element={<Carrito />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="/ofertas" element={<Ofertas />} />
-        {/* fallback */}
         <Route path="*" element={<Home />} />
       </Routes>
       <Footer />  
