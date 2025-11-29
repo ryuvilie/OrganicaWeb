@@ -1,11 +1,16 @@
-import React, { useState } from "react";
-import { useSearchParams } from "react-router-dom"; // 👈 nuevo
-import productos from "../data/productos";
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import { apiProducts } from "../api/products";        // 👈 ahora usamos la API real
 import ProductCard from "../components/ProductCard";
 import "../styles/Catalogo.css";
 
 const Catalogo = () => {
-  // estado local (por si el usuario cambia de categoría con los chips)
+  // estado para productos del backend
+  const [productos, setProductos] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState(null);
+
+  // estado local de filtros
   const [categoria, setCategoria] = useState("Todos");
   const [terminoBusqueda, setTerminoBusqueda] = useState("");
   const [ordenarPor, setOrdenarPor] = useState("defecto");
@@ -19,14 +24,58 @@ const Catalogo = () => {
     { valor: "nombre-desc", etiqueta: "Nombre: Z-A" },
   ];
 
-  // 👇 Leer ?cat=frutas|verduras|semillas desde la URL
+  // 👇 Leer ?cat=frutas|verduras|semillas|otros|todas desde la URL
   const [searchParams] = useSearchParams();
   const catParam = (searchParams.get("cat") || "").toLowerCase();
-  const mapCat = { frutas: "Frutas", verduras: "Verduras", semillas: "Semillas", otros: "Otros", todas: "Todos" };
+  const mapCat = {
+    frutas: "Frutas",
+    verduras: "Verduras",
+    semillas: "Semillas",
+    otros: "Otros",
+    todas: "Todos",
+  };
   const categoriaURL = mapCat[catParam]; // undefined si no viene o no coincide
 
   // 👇 categoría efectiva: si viene por URL, se usa; si no, la del estado
   const categoriaActiva = categoriaURL || categoria;
+
+  // 🔄 cargar productos desde el backend al montar el componente
+  useEffect(() => {
+    async function cargarProductos() {
+      try {
+        setCargando(true);
+        setError(null);
+        const data = await apiProducts.list();   // GET /api/productos
+        setProductos(data || []);
+      } catch (e) {
+        console.error("Error cargando productos:", e);
+        setError("No se pudieron cargar los productos. Intenta más tarde.");
+      } finally {
+        setCargando(false);
+      }
+    }
+
+    cargarProductos();
+  }, []);
+
+  // estados de carga / error
+  if (cargando) {
+    return (
+      <main className="catalogo-container">
+        <h1>Catálogo de Productos</h1>
+        <p className="catalogo-loading">Cargando productos...</p>
+      </main>
+    );
+  }
+
+  if (error) {
+    return (
+      <main className="catalogo-container">
+        <h1>Catálogo de Productos</h1>
+        <p className="catalogo-error">{error}</p>
+      </main>
+    );
+  }
 
   // 1) Filtrar por categoría (usando la efectiva)
   let productosActuales =
@@ -36,20 +85,22 @@ const Catalogo = () => {
 
   // 2) Filtrar por búsqueda (nombre)
   productosActuales = productosActuales.filter((producto) =>
-    producto.nombre.toLowerCase().includes(terminoBusqueda.toLowerCase())
+    (producto.nombre || "")
+      .toLowerCase()
+      .includes(terminoBusqueda.toLowerCase())
   );
 
   // 3) Ordenar
   const productosFiltradosOrdenados = [...productosActuales].sort((a, b) => {
     switch (ordenarPor) {
       case "precio-asc":
-        return a.precio - b.precio;
+        return (a.precio || 0) - (b.precio || 0);
       case "precio-desc":
-        return b.precio - a.precio;
+        return (b.precio || 0) - (a.precio || 0);
       case "nombre-asc":
-        return a.nombre.localeCompare(b.nombre, "es");
+        return (a.nombre || "").localeCompare(b.nombre || "", "es");
       case "nombre-desc":
-        return b.nombre.localeCompare(a.nombre, "es");
+        return (b.nombre || "").localeCompare(a.nombre || "", "es");
       default:
         return 0;
     }
@@ -76,10 +127,12 @@ const Catalogo = () => {
           {categorias.map((cat) => (
             <button
               key={cat}
-              className={`filtro-btn ${categoriaActiva === cat ? "activo" : ""}`}
+              className={`filtro-btn ${
+                categoriaActiva === cat ? "activo" : ""
+              }`}
               onClick={() => {
-                setCategoria(cat);            // actualiza el estado si el usuario cambia
-                setTerminoBusqueda("");       // opcional: limpiar búsqueda
+                setCategoria(cat); // actualiza el estado si el usuario cambia
+                setTerminoBusqueda(""); // opcional: limpiar búsqueda
               }}
             >
               {cat}

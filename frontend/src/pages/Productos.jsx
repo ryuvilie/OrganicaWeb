@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { apiGet } from '../api/client';
+import React, { useEffect, useState } from "react";
+import { apiProducts } from "../api/products";
+import ProductCard from "../components/ProductCard";
 
 const Productos = () => {
   const [items, setItems] = useState([]);
@@ -9,38 +10,44 @@ const Productos = () => {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const data = await apiGet('/products');
-        setItems(data);
+        setLoading(true);
+        setError(null);
+        // 👇 ahora viene del backend: GET http://localhost:9090/api/productos
+        const data = await apiProducts.list();
+        setItems(data || []);
       } catch (err) {
-        setError('Error al cargar los productos');
+        console.error("Error al cargar los productos (Productos.jsx):", err);
+        setError("Error al cargar los productos");
       } finally {
         setLoading(false);
       }
     }
+
     fetchProducts();
   }, []);
 
-  if (loading) return <main className="container" style={{ padding: '24px 0' }}><p>Cargando productos...</p></main>;
-  if (error) return <main className="container" style={{ padding: '24px 0' }}><p>{error}</p></main>;
+  if (loading) {
+    return (
+      <main className="container" style={{ padding: "24px 0" }}>
+        <p>Cargando productos...</p>
+      </main>
+    );
+  }
+
+  if (error) {
+    return (
+      <main className="container" style={{ padding: "24px 0" }}>
+        <p>{error}</p>
+      </main>
+    );
+  }
 
   return (
-    <main className="container" style={{ padding: '24px 0' }}>
+    <main className="container" style={{ padding: "24px 0" }}>
       <h1>Productos</h1>
-      <div className="grid" style={{ marginTop: '16px' }}>
+      <div className="grid" style={{ marginTop: "16px" }}>
         {items.map((p) => (
-          <article key={p.id} className="card">
-            <img
-              src={p.image}
-              alt={p.name}
-              style={{ width: '100%', borderRadius: '12px', objectFit: 'cover', marginBottom: '8px' }}
-              onError={(e) => { e.currentTarget.style.display = 'none'; }}
-            />
-            <h3>{p.name}</h3>
-            <p>${p.price}</p>
-            <button className="btn" style={{ marginTop: '8px' }}>
-              Agregar al carrito
-            </button>
-          </article>
+          <ProductCard key={p.id} producto={p} />
         ))}
       </div>
     </main>

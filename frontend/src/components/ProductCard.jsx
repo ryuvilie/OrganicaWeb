@@ -5,37 +5,64 @@ import "../styles/ProductCard.css";
 const ProductCard = ({ producto }) => {
   const { addToCart } = useCart();
 
+  // Soportar distintos nombres de campos según vengan del backend o mock
+  const imageSrc =
+    producto.image_url ||
+    producto.imageUrl ||
+    producto.imagen ||
+    producto.imagenUrl ||
+    producto.image ||
+    "";
+
+  const nombre = producto.nombre || producto.name || "Producto";
+  const descripcion = producto.descripcion || producto.description || "";
+  const categoria = producto.categoria || producto.category || "";
+  const precioBase = producto.precio ?? producto.price ?? 0;
+
+  // Boolean para oferta (por si viene como 0/1, "true"/"false", etc.)
+  const esOferta = Boolean(producto.oferta);
+
+  const precioNormal = Number(precioBase) || 0;
+  const precioAntiguo = Math.round(precioNormal * 1.2); // 20% más caro
+
   return (
     <div className="product-card">
       {/* Etiqueta de oferta */}
-      {producto.oferta && <span className="badge-oferta">OFERTA 🔥</span>}
+      {esOferta && <span className="badge-oferta">OFERTA 🔥</span>}
 
       {/* Imagen */}
-      <img
-        src={producto.imagen}
-        alt={producto.nombre}
-        className="product-img"
-        onError={(e) => (e.target.style.display = "none")}
-      />
+      {imageSrc && (
+        <img
+          src={imageSrc}
+          alt={nombre}
+          className="product-img"
+          onError={(e) => {
+            // si la URL falla (404, etc.), escondemos la imagen
+            e.currentTarget.style.display = "none";
+          }}
+        />
+      )}
 
       {/* Información */}
-      <h3 className="product-nombre">{producto.nombre}</h3>
-      <p className="product-desc">{producto.descripcion}</p>
-      <p className="product-categoria">Categoría: {producto.categoria}</p>
+      <h3 className="product-nombre">{nombre}</h3>
+      <p className="product-desc">{descripcion}</p>
+      {categoria && (
+        <p className="product-categoria">Categoría: {categoria}</p>
+      )}
 
       {/* Precio */}
-      {producto.oferta ? (
+      {esOferta ? (
         <p className="product-precio">
           <span className="precio-antiguo">
-            ${Math.round(producto.precio * 1.2).toLocaleString("es-CL")}
+            ${precioAntiguo.toLocaleString("es-CL")}
           </span>{" "}
           <span className="precio-oferta">
-            ${producto.precio.toLocaleString("es-CL")}
+            ${precioNormal.toLocaleString("es-CL")}
           </span>
         </p>
       ) : (
         <p className="product-precio">
-          ${producto.precio.toLocaleString("es-CL")}
+          ${precioNormal.toLocaleString("es-CL")}
         </p>
       )}
 

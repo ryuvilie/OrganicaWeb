@@ -1,10 +1,10 @@
 import React from "react";
-import productos from "../data/productos";
+import { apiProducts } from "../api/products";  
 import ProductCard from "../components/ProductCard";
 import "../styles/Catalogo.css";
 
 const Ofertas = () => {
-  const ofertas = productos.filter((p) => p.oferta);
+  const ofertas = apiProducts.filter((p) => p.oferta);
 
   return (
     <main className="catalogo-container">
