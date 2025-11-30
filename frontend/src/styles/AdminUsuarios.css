@@ -1,0 +1,49 @@
+.admin-usuarios .title {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.usuarios-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.usuarios-table th,
+.usuarios-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.btn-edit,
+.btn-save,
+.btn-cancel,
+.btn-danger {
+  padding: 6px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.btn-danger {
+  background: #e63946;
+  color: white;
+  border: none;
+}
+
+.btn-edit {
+  background: #3a86ff;
+  color: white;
+  border: none;
+}
+
+.btn-save {
+  background: #2a9d8f;
+  color: white;
+  border: none;
+}
+
+.btn-cancel {
+  background: #999;
+  color: white;
+  border: none;
+}

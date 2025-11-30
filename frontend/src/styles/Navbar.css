@@ -146,3 +146,14 @@
   background-color: #2e7d32; /* color del botón activo */
   color: #ffffff;
 }
+.perfil-link {
+  cursor: pointer;
+  font-weight: bold;
+  color: #2a5934;
+  text-decoration: none;
+}
+
+.perfil-link:hover {
+  text-decoration: underline;
+  color: #1d4025;
+}

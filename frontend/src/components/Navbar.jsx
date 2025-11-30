@@ -50,11 +50,8 @@ const SiteNavbar = () => {
             {isAdmin && (
               <>
                 <li>
-                  <NavLink to="/admin/productos">
-                    Administrar productos
-                  </NavLink>
+                  <NavLink to="/admin/productos">Administrar productos</NavLink>
                 </li>
-                {/* futuro: usuarios, ventas, etc. */}
               </>
             )}
           </ul>
@@ -76,9 +73,11 @@ const SiteNavbar = () => {
           <div className="user-info">
             {usuario ? (
               <>
-                <span className="user-bienvenida">
+                {/* 🔥 ENLACE AL PERFIL */}
+                <Link to="/perfil" className="user-bienvenida perfil-link">
                   👋 {nombreMostrar}
-                </span>
+                </Link>
+
                 <button onClick={logout} className="btn-logout">
                   Cerrar sesión
                 </button>

@@ -20,6 +20,11 @@ export const apiProducts = {
     return apiPatch(`/api/productos/${id}/stock`, { stock });
   },
 
+  // ⭐ NUEVO: actualizar precio
+  async updatePrice(id, precio) {
+    return apiPatch(`/api/productos/${id}/precio`, { precio });
+  },
+
   async remove(id) {
     return apiDelete(`/api/productos/${id}`);
   },
