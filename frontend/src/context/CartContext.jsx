@@ -6,10 +6,9 @@ export const useCart = () => useContext(CartContext);
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
-  // 🟢 Función para normalizar ID (id_producto o id)
+  // Normalizar ID (id_producto o id)
   const getProductoId = (producto) => producto.id_producto ?? producto.id;
 
-  // ➕ Agregar al carrito
   const addToCart = (producto) => {
     const id = getProductoId(producto);
 
@@ -18,47 +17,33 @@ export const CartProvider = ({ children }) => {
 
       if (existente) {
         return prev.map((item) =>
-          item.id === id
-            ? { ...item, cantidad: item.cantidad + 1 }
-            : item
+          item.id === id ? { ...item, cantidad: item.cantidad + 1 } : item
         );
       }
 
-      // 🟢 Guardamos el producto SIEMPRE con id normalizado
       return [...prev, { ...producto, id, cantidad: 1 }];
     });
   };
 
-  // ➖ Restar 1
   const decreaseFromCart = (id) => {
     setCartItems((prev) =>
       prev
         .map((item) =>
-          item.id === id
-            ? { ...item, cantidad: item.cantidad - 1 }
-            : item
+          item.id === id ? { ...item, cantidad: item.cantidad - 1 } : item
         )
         .filter((item) => item.cantidad > 0)
     );
   };
 
-  // ❌ Eliminar completamente
   const removeFromCart = (id) => {
     setCartItems((prev) => prev.filter((item) => item.id !== id));
   };
 
-  // 🧹 Vaciar carrito
   const clearCart = () => setCartItems([]);
 
   return (
     <CartContext.Provider
-      value={{
-        cartItems,
-        addToCart,
-        decreaseFromCart,
-        removeFromCart,
-        clearCart,
-      }}
+      value={{ cartItems, addToCart, decreaseFromCart, removeFromCart, clearCart }}
     >
       {children}
     </CartContext.Provider>

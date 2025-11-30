@@ -1,37 +1,47 @@
 import React from "react";
 import { useCart } from "../context/CartContext";
-import "../styles/Carrito.css";
+import { useUser } from "../context/UserContext";
 import { apiVentas } from "../api/ventas";
-
+import "../styles/Carrito.css";
 
 function Carrito() {
-  const { cartItems, addToCart, decreaseFromCart, removeFromCart, clearCart } = useCart();
+  const { cartItems, addToCart, decreaseFromCart, removeFromCart, clearCart } =
+    useCart();
+  const { usuario } = useUser();
+
   const total = cartItems.reduce(
-  (sum, item) => sum + item.precio * item.cantidad,
-  0
-);
-    const handleFinalizarCompra = async () => {
-      try {
-        const venta = {
-          total,
-          detalles: cartItems.map(item => ({
-            id_producto: item.id,
-            cantidad: item.cantidad,
-            subtotal: item.precio * item.cantidad
-          }))
-        };
+    (sum, item) => sum + item.precio * item.cantidad,
+    0
+  );
 
-        await apiVentas.crear(venta);
+  const finalizarCompra = async () => {
+    if (cartItems.length === 0) {
+      alert("Tu carrito está vacío.");
+      return;
+    }
 
-        clearCart();
-        alert("¡Compra realizada con éxito!");
+    const items = cartItems.map((p) => ({
+      idProducto: p.id_producto ?? p.id,
+      cantidad: p.cantidad,
+    }));
 
-      } catch (err) {
-        console.error("Error al crear venta:", err);
-        alert("Error al procesar la venta");
-      }
+    const payload = {
+      // 🔥 si está loggeado mandamos su id_usuario, si no, null
+      idUsuario: usuario ? usuario.id_usuario : null,
+      items,
     };
 
+    try {
+      const resp = await apiVentas.crearVenta(payload);
+      alert(
+        `Compra realizada con éxito. Total: $${resp.total.toLocaleString("es-CL")}`
+      );
+      clearCart();
+    } catch (error) {
+      console.error("Error al crear la venta:", error);
+      alert("No se pudo finalizar la compra. Intenta nuevamente.");
+    }
+  };
 
   return (
     <main className="carrito-container">
@@ -57,13 +67,23 @@ function Carrito() {
               {cartItems.map((p) => (
                 <tr key={p.id}>
                   <td>{p.nombre}</td>
-                  <td>${p.precio.toLocaleString()}</td>
+                  <td>${p.precio.toLocaleString("es-CL")}</td>
                   <td className="col-cantidad">
-                    <button onClick={() => decreaseFromCart(p.id)} className="btn-cantidad">–</button>
+                    <button
+                      onClick={() => decreaseFromCart(p.id)}
+                      className="btn-cantidad"
+                    >
+                      –
+                    </button>
                     <span>{p.cantidad}</span>
-                    <button onClick={() => addToCart(p)} className="btn-cantidad">+</button>
+                    <button
+                      onClick={() => addToCart(p)}
+                      className="btn-cantidad"
+                    >
+                      +
+                    </button>
                   </td>
-                  <td>${(p.precio * p.cantidad).toLocaleString()}</td>
+                  <td>${(p.precio * p.cantidad).toLocaleString("es-CL")}</td>
                   <td>
                     <button
                       className="btn-eliminar"
@@ -78,15 +98,12 @@ function Carrito() {
           </table>
 
           <div className="carrito-acciones">
-            <h2>Total: ${total.toLocaleString()}</h2>
+            <h2>Total: ${total.toLocaleString("es-CL")}</h2>
             <div>
               <button className="btn-vaciar" onClick={clearCart}>
                 Vaciar carrito
               </button>
-              <button
-                  className="btn-comprar"
-                  onClick={handleFinalizarCompra}
-                >
+              <button className="btn-comprar" onClick={finalizarCompra}>
                 Finalizar compra
               </button>
             </div>

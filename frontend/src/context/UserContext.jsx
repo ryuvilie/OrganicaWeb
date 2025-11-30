@@ -9,7 +9,7 @@ const STORAGE_USER = "usuario";
 const STORAGE_TOKEN = "token";
 
 export const UserProvider = ({ children }) => {
-  const [usuario, setUsuario] = useState(null); // { id, nombre, correo, rol }
+  const [usuario, setUsuario] = useState(null); 
   const [token, setToken] = useState(null);
 
   // Cargar sesión almacenada al iniciar
@@ -28,9 +28,9 @@ export const UserProvider = ({ children }) => {
       clave: password,
     });
 
-    // resp esperado: { token, id, nombre, correo, rol }
+    // resp REAL = { token, id_usuario, nombre, correo, rol }
     const userData = {
-      id: resp.id,
+      id: resp.id_usuario,   // 🔥 CORREGIDO AQUÍ
       nombre: resp.nombre,
       correo: resp.correo,
       rol: resp.rol,
@@ -53,18 +53,20 @@ export const UserProvider = ({ children }) => {
       clave: password,
     });
 
-    // si el backend devuelve también token, lo usamos igual que en login
     if (resp.token) {
       const userData = {
-        id: resp.id,
+        id: resp.id_usuario,   // 🔥 CORREGIDO AQUÍ TAMBIÉN
         nombre: resp.nombre ?? nombre,
         correo: resp.correo ?? email,
         rol: resp.rol ?? "USER",
       };
+
       setUsuario(userData);
       setToken(resp.token);
+
       localStorage.setItem(STORAGE_USER, JSON.stringify(userData));
       localStorage.setItem(STORAGE_TOKEN, resp.token);
+
       return userData;
     }
 

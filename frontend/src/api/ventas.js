@@ -1,7 +1,8 @@
+// src/api/ventas.js
 import { apiPost } from "./client";
 
 export const apiVentas = {
-  crear(venta) {
-    return apiPost("/api/ventas", venta);
-  }
+  async crearVenta(payload) {
+    return apiPost("/api/ventas", payload);
+  },
 };
