@@ -7,7 +7,11 @@ import "../styles/Navbar.css";
 const SiteNavbar = () => {
   const { cartItems } = useCart();
   const cantidadTotal = cartItems.reduce((sum, item) => sum + item.cantidad, 0);
-  const { usuario, logout } = useUser();
+
+  const { usuario, isAdmin, logout } = useUser();
+
+  const nombreMostrar =
+    usuario?.nombre || usuario?.correo || usuario?.email || "";
 
   return (
     <header className="navbar">
@@ -15,8 +19,14 @@ const SiteNavbar = () => {
         {/* Brand */}
         <div className="brand">
           <div className="logo">
-            <img src="/assets/img/logo.png" alt="logo zanahoria" className="logo-icon" />
-            <Link to="/" className="logo-text">Orgánica</Link>
+            <img
+              src="/assets/img/logo.png"
+              alt="logo zanahoria"
+              className="logo-icon"
+            />
+            <Link to="/" className="logo-text">
+              Orgánica
+            </Link>
           </div>
           <div className="tagline">Productos frescos del campo a tu mesa</div>
         </div>
@@ -24,9 +34,29 @@ const SiteNavbar = () => {
         {/* Nav */}
         <nav aria-label="Principal" className="nav-menu">
           <ul>
-            <li><NavLink to="/" end>Inicio</NavLink></li>
-            <li><NavLink to="/catalogo">Productos</NavLink></li>
-            <li><NavLink to="/contacto">Contacto</NavLink></li>
+            <li>
+              <NavLink to="/" end>
+                Inicio
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/catalogo">Productos</NavLink>
+            </li>
+            <li>
+              <NavLink to="/contacto">Contacto</NavLink>
+            </li>
+
+            {/* Opciones extra solo para ADMIN */}
+            {isAdmin && (
+              <>
+                <li>
+                  <NavLink to="/admin/productos">
+                    Administrar productos
+                  </NavLink>
+                </li>
+                {/* futuro: usuarios, ventas, etc. */}
+              </>
+            )}
           </ul>
         </nav>
 
@@ -46,7 +76,9 @@ const SiteNavbar = () => {
           <div className="user-info">
             {usuario ? (
               <>
-                <span className="user-bienvenida">👋 {usuario.email}</span>
+                <span className="user-bienvenida">
+                  👋 {nombreMostrar}
+                </span>
                 <button onClick={logout} className="btn-logout">
                   Cerrar sesión
                 </button>
@@ -59,7 +91,6 @@ const SiteNavbar = () => {
           </div>
         </div>
       </div>
-      
     </header>
   );
 };

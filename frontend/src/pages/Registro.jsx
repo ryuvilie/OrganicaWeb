@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import "../styles/Registro.css";
-import { useUser } from "../context/UserContext"; // 👈 importar
+import { useUser } from "../context/UserContext";
 
 const Registro = () => {
   const [modo, setModo] = useState("login"); // "login" o "registro"
-  const { login } = useUser(); // 👈 usar el login global
+  const { login, register } = useUser();
   const [formData, setFormData] = useState({
     nombre: "",
     email: "",
     password: "",
   });
   const [mensaje, setMensaje] = useState("");
+  const [cargando, setCargando] = useState(false);
 
   // Validaciones básicas
   const validarEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -20,19 +21,13 @@ const Registro = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setMensaje("");
 
     const { nombre, email, password } = formData;
 
-    if (modo === "login") {
-      login(email); // 👈 guarda usuario logueado
-      setMensaje(`✅ Bienvenido nuevamente, ${email}!`);
-    } else {
-      login(email); // 👈 también loguea al registrar
-      setMensaje(`🎉 Registro exitoso. ¡Bienvenido/a, ${nombre}!`);
-    }
-
+    // Validaciones
     if (!email || !password || (modo === "registro" && !nombre)) {
       setMensaje("Por favor completa todos los campos.");
       return;
@@ -48,16 +43,28 @@ const Registro = () => {
       return;
     }
 
-    // Simulación de login / registro exitoso
-    if (modo === "login") {
-      setMensaje(`✅ Bienvenido nuevamente, ${email}!`);
-    } else {
-      setMensaje(`🎉 Registro exitoso. ¡Bienvenido/a, ${nombre}!`);
+    setCargando(true);
+    try {
+      if (modo === "login") {
+        await login(email, password); // 🔐 login real contra backend
+        setMensaje(`✅ Bienvenido nuevamente, ${email}!`);
+      } else {
+        await register(nombre, email, password); // 🆕 registro real
+        setMensaje(`🎉 Registro exitoso. ¡Bienvenido/a, ${nombre}!`);
+      }
+
+      setFormData({ nombre: "", email: "", password: "" });
+      setTimeout(() => setMensaje(""), 4000);
+    } catch (err) {
+      console.error("Error en autenticación:", err);
+      setMensaje(
+        modo === "login"
+          ? "Correo o contraseña incorrectos."
+          : "No se pudo completar el registro. Intenta nuevamente."
+      );
+    } finally {
+      setCargando(false);
     }
-
-    setFormData({ nombre: "", email: "", password: "" });
-
-    setTimeout(() => setMensaje(""), 4000);
   };
 
   return (
@@ -114,8 +121,14 @@ const Registro = () => {
             />
           </div>
 
-          <button type="submit" className="btn-enviar">
-            {modo === "login" ? "Ingresar" : "Registrarme"}
+          <button type="submit" className="btn-enviar" disabled={cargando}>
+            {cargando
+              ? modo === "login"
+                ? "Ingresando..."
+                : "Registrando..."
+              : modo === "login"
+              ? "Ingresar"
+              : "Registrarme"}
           </button>
 
           {mensaje && <p className="form-feedback">{mensaje}</p>}
@@ -125,12 +138,16 @@ const Registro = () => {
           {modo === "login" ? (
             <p>
               ¿No tienes cuenta?{" "}
-              <button onClick={() => setModo("registro")}>Crear una cuenta</button>
+              <button type="button" onClick={() => setModo("registro")}>
+                Crear una cuenta
+              </button>
             </p>
           ) : (
             <p>
               ¿Ya tienes cuenta?{" "}
-              <button onClick={() => setModo("login")}>Iniciar sesión</button>
+              <button type="button" onClick={() => setModo("login")}>
+                Iniciar sesión
+              </button>
             </p>
           )}
         </div>

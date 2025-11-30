@@ -1,35 +1,89 @@
+// src/context/UserContext.jsx
 import React, { createContext, useState, useContext, useEffect } from "react";
+import { apiPost } from "../api/client";
 
 const UserContext = createContext();
-
 export const useUser = () => useContext(UserContext);
 
-export const UserProvider = ({ children }) => {
-  const [usuario, setUsuario] = useState(null);
+const STORAGE_USER = "usuario";
+const STORAGE_TOKEN = "token";
 
-  // Cargar usuario desde localStorage (si estaba logueado)
+export const UserProvider = ({ children }) => {
+  const [usuario, setUsuario] = useState(null); // { id, nombre, correo, rol }
+  const [token, setToken] = useState(null);
+
+  // Cargar sesión almacenada al iniciar
   useEffect(() => {
-    const userGuardado = localStorage.getItem("usuario");
-    if (userGuardado) {
-      setUsuario(JSON.parse(userGuardado));
-    }
+    const u = localStorage.getItem(STORAGE_USER);
+    const t = localStorage.getItem(STORAGE_TOKEN);
+
+    if (u) setUsuario(JSON.parse(u));
+    if (t) setToken(t);
   }, []);
 
-  // Iniciar sesión (recibe datos desde el formulario)
-  const login = (email) => {
-    const nuevoUsuario = { email };
-    setUsuario(nuevoUsuario);
-    localStorage.setItem("usuario", JSON.stringify(nuevoUsuario));
+  // 🔐 LOGIN real contra /auth/login
+  const login = async (email, password) => {
+    const resp = await apiPost("/auth/login", {
+      correo: email,
+      clave: password,
+    });
+
+    // resp esperado: { token, id, nombre, correo, rol }
+    const userData = {
+      id: resp.id,
+      nombre: resp.nombre,
+      correo: resp.correo,
+      rol: resp.rol,
+    };
+
+    setUsuario(userData);
+    setToken(resp.token);
+
+    localStorage.setItem(STORAGE_USER, JSON.stringify(userData));
+    localStorage.setItem(STORAGE_TOKEN, resp.token);
+
+    return userData;
   };
 
-  // Cerrar sesión
+  // 🆕 REGISTER real contra /auth/register
+  const register = async (nombre, email, password) => {
+    const resp = await apiPost("/auth/register", {
+      nombre,
+      correo: email,
+      clave: password,
+    });
+
+    // si el backend devuelve también token, lo usamos igual que en login
+    if (resp.token) {
+      const userData = {
+        id: resp.id,
+        nombre: resp.nombre ?? nombre,
+        correo: resp.correo ?? email,
+        rol: resp.rol ?? "USER",
+      };
+      setUsuario(userData);
+      setToken(resp.token);
+      localStorage.setItem(STORAGE_USER, JSON.stringify(userData));
+      localStorage.setItem(STORAGE_TOKEN, resp.token);
+      return userData;
+    }
+
+    return resp;
+  };
+
   const logout = () => {
     setUsuario(null);
-    localStorage.removeItem("usuario");
+    setToken(null);
+    localStorage.removeItem(STORAGE_USER);
+    localStorage.removeItem(STORAGE_TOKEN);
   };
 
+  const isAdmin = usuario?.rol === "ADMIN";
+
   return (
-    <UserContext.Provider value={{ usuario, login, logout }}>
+    <UserContext.Provider
+      value={{ usuario, token, isAdmin, login, register, logout }}
+    >
       {children}
     </UserContext.Provider>
   );
