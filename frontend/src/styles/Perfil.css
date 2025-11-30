@@ -1,51 +1,49 @@
-/* ===== CONTENEDOR PRINCIPAL ===== */
+/* ======== CONTENEDOR GENERAL ======== */
 .perfil-container {
-  max-width: 700px;
-  margin: 40px auto;
-  padding: 20px;
-}
-
-/* ===== TARJETA ===== */
-.perfil-card {
-  background: #ffffff;
-  padding: 35px;
-  border-radius: 14px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-  border-left: 5px solid #2e7d32;
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-/* ===== TÍTULO ===== */
-.perfil-title {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #2e7d32;
-  text-align: center;
-  margin-bottom: 25px;
-}
-
-/* ===== VISTA DE INFORMACIÓN ===== */
-.perfil-info {
-  font-size: 1.15rem;
-  color: #333;
   display: flex;
-  flex-direction: column;
-  row-gap: 12px;
+  justify-content: center;
+  padding: 40px 20px;
 }
 
-.perfil-info p strong {
+/* ======== TARJETA ======== */
+.perfil-card {
+  width: 100%;
+  max-width: 600px;
+  background: #f8faf8;
+  border-radius: 12px;
+  padding: 30px;
+  border: 2px solid #2e7d32;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* ======== TÍTULO ======== */
+.perfil-title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 30px;
   color: #2e7d32;
+  font-weight: bold;
 }
 
-/* ===== BOTONES ===== */
+/* ======== INFO DEL PERFIL ======== */
+.perfil-info p {
+  font-size: 17px;
+  margin: 12px 0;
+  color: #333;
+}
+
+/* ======== BOTONES ======== */
 .perfil-edit-btn,
 .btn-save,
 .btn-cancel {
-  padding: 12px 20px;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 6px;
+  font-size: 16px;
   cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s ease-in-out;
 }
 
 /* Botón verde */
@@ -53,28 +51,30 @@
 .btn-save {
   background-color: #2e7d32;
   color: white;
+  border: none;
 }
 
 .perfil-edit-btn:hover,
 .btn-save:hover {
-  background-color: #1b5e20;
+  background-color: #256428;
 }
 
-/* Botón gris */
+/* Botón rojo */
 .btn-cancel {
-  background-color: #aaaaaa;
+  background-color: #c62828;
   color: white;
+  border: none;
 }
 
 .btn-cancel:hover {
-  background-color: #8c8c8c;
+  background-color: #a12020;
 }
 
-/* ===== FORMULARIO ===== */
+/* ======== FORMULARIO ======== */
 .perfil-form {
   display: flex;
   flex-direction: column;
-  row-gap: 18px;
+  gap: 12px;
 }
 
 .perfil-form label {
@@ -83,34 +83,29 @@
 }
 
 .perfil-form input {
-  padding: 12px;
-  font-size: 1rem;
-  border: 1px solid #cccccc;
-  border-radius: 8px;
+  padding: 10px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  font-size: 16px;
+  outline: none;
 }
 
+.perfil-form input:focus {
+  border-color: #2e7d32;
+  box-shadow: 0 0 5px rgba(46, 125, 50, 0.3);
+}
+
+/* ======== CONTENEDOR DE BOTONES EN EDICIÓN ======== */
 .perfil-form-buttons {
-  margin-top: 10px;
   display: flex;
-  gap: 15px;
+  flex-direction: column;
+  gap: 10px;
 }
 
-/* ===== MENSAJES ===== */
+/* ======== MENSAJE ======== */
 .perfil-msg {
   margin-top: 15px;
-  color: #1b5e20;
-  font-weight: bold;
   text-align: center;
-}
-
-/* ===== ANIMACIÓN ===== */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  font-weight: bold;
+  color: #2e7d32;
 }

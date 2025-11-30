@@ -1,6 +1,7 @@
 // src/pages/Perfil.jsx
 import React, { useState } from "react";
 import { useUser } from "../context/UserContext";
+import { Link } from "react-router-dom";
 import "../styles/Perfil.css";
 
 const Perfil = () => {
@@ -29,10 +30,7 @@ const Perfil = () => {
 
   const handleGuardar = (e) => {
     e.preventDefault();
-
-    // 👉 Esto sería para guardar en backend si lo quieres más adelante
     console.log("Datos editados:", form);
-
     setEditando(false);
   };
 
@@ -43,17 +41,32 @@ const Perfil = () => {
         <h1 className="perfil-title">Mi Perfil</h1>
 
         {/* ======================= */}
-        {/*   VISTA NORMAL (NO EDITA) */}
+        {/*   VISTA NORMAL */}
         {/* ======================= */}
         {!editando && (
           <div className="perfil-info">
+
             <p><strong>Nombre:</strong> {usuario.nombre}</p>
             <p><strong>Correo:</strong> {usuario.correo}</p>
             <p><strong>Rol:</strong> {usuario.rol}</p>
 
-            <button className="perfil-edit-btn" onClick={() => setEditando(true)}>
+            <button 
+              className="perfil-edit-btn" 
+              onClick={() => setEditando(true)}
+            >
               Editar perfil
             </button>
+
+            {/* 🔥 SOLO ADMIN VE ESTE BOTÓN */}
+            {usuario.rol === "ADMIN" && (
+              <Link 
+                to="/admin/usuarios" 
+                className="perfil-edit-btn" 
+                style={{ marginTop: "15px", textAlign: "center" }}
+              >
+                Administrar usuarios
+              </Link>
+            )}
 
             <button
               className="btn-cancel"
@@ -70,6 +83,7 @@ const Perfil = () => {
         {/* ======================= */}
         {editando && (
           <form onSubmit={handleGuardar} className="perfil-form">
+
             <label>Nombre</label>
             <input
               type="text"
@@ -99,6 +113,7 @@ const Perfil = () => {
 
             <div className="perfil-form-buttons">
               <button className="btn-save" type="submit">Guardar</button>
+
               <button
                 type="button"
                 className="btn-cancel"
