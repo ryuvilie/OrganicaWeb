@@ -1,6 +1,8 @@
 import React from "react";
 import { useCart } from "../context/CartContext";
 import "../styles/Carrito.css";
+import { apiVentas } from "../api/ventas";
+
 
 function Carrito() {
   const { cartItems, addToCart, decreaseFromCart, removeFromCart, clearCart } = useCart();
@@ -8,6 +10,28 @@ function Carrito() {
   (sum, item) => sum + item.precio * item.cantidad,
   0
 );
+    const handleFinalizarCompra = async () => {
+      try {
+        const venta = {
+          total,
+          detalles: cartItems.map(item => ({
+            id_producto: item.id,
+            cantidad: item.cantidad,
+            subtotal: item.precio * item.cantidad
+          }))
+        };
+
+        await apiVentas.crear(venta);
+
+        clearCart();
+        alert("¡Compra realizada con éxito!");
+
+      } catch (err) {
+        console.error("Error al crear venta:", err);
+        alert("Error al procesar la venta");
+      }
+    };
+
 
   return (
     <main className="carrito-container">
@@ -60,11 +84,9 @@ function Carrito() {
                 Vaciar carrito
               </button>
               <button
-                className="btn-comprar"
-                onClick={() =>
-                  alert("¡Gracias por tu compra! (Simulación)")
-                }
-              >
+                  className="btn-comprar"
+                  onClick={handleFinalizarCompra}
+                >
                 Finalizar compra
               </button>
             </div>
