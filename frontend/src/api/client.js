@@ -71,5 +71,19 @@ export async function apiDelete(path) {
     method: "DELETE",
     headers: buildHeaders(),
   });
-  return handleResponse(res, "DELETE", path);
+
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    throw new Error(
+      `DELETE ${path} failed: ${res.status} ${res.statusText} - ${text}`
+    );
+  }
+
+  const text = await res.text().catch(() => "");
+  try {
+    return text ? JSON.parse(text) : null;
+  } catch {
+    return text || null;
+  }
 }
+
