@@ -11,4 +11,9 @@ export const apiUsuarios = {
   updatePerfil(data) {
     return apiPut("/api/usuarios/perfil", data);
   },
+
+  // 🔥 desactivar usuario (nuevo)
+  deactivate(id) {
+    return apiPut(`/api/usuarios/${id}/desactivar`);
+  },
 };

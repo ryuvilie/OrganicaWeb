@@ -1,10 +1,16 @@
-/* Contenedor general */
+/* ------------------ CONTENEDOR GENERAL ------------------ */
 .admin-products {
   padding: 40px 0;
-  background-color: #fdfaf6;
+  background-color: #fdfaf6; /* Beige suave estilo HuertoHogar */
+  animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Encabezado */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ------------------ ENCABEZADO ------------------ */
 .admin-header {
   display: flex;
   justify-content: space-between;
@@ -25,7 +31,7 @@
   font-size: 0.95rem;
 }
 
-/* Botón de crear: evitar que se estire al 100% (franja verde) */
+/* ------------------ BOTÓN CREAR PRODUCTO ------------------ */
 .admin-btn-crear {
   width: auto !important;
   display: inline-flex;
@@ -34,15 +40,24 @@
   white-space: nowrap;
   padding-inline: 24px;
   flex-shrink: 0;
+  background: #2f855a !important;
+  color: white !important;
+  border-radius: 999px;
+  transition: 0.2s ease;
 }
 
-/* Tarjeta del formulario */
+.admin-btn-crear:hover {
+  background: #276749 !important;
+}
+
+/* ------------------ FORMULARIO ------------------ */
 .admin-form-card {
   background: #fff;
   border-radius: 16px;
   padding: 20px 24px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   margin-bottom: 24px;
+  animation: fadeIn 0.25s ease-in-out;
 }
 
 .admin-form-card h2 {
@@ -51,7 +66,6 @@
   color: #22543d;
 }
 
-/* Grid de formulario */
 .admin-form-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -77,13 +91,14 @@
   padding: 8px 10px;
   font-size: 0.95rem;
   outline: none;
+  background: #fff;
 }
 
 .admin-form-grid input:focus,
 .admin-form-grid textarea:focus,
 .admin-form-grid select:focus {
   border-color: #38a169;
-  box-shadow: 0 0 0 1px rgba(56, 161, 105, 0.3);
+  box-shadow: 0 0 0 1px rgba(56, 161, 105, 0.35);
 }
 
 .admin-form-actions {
@@ -93,7 +108,7 @@
   margin-top: 4px;
 }
 
-/* Lista */
+/* ------------------ LISTA GENERAL ------------------ */
 .admin-list {
   margin-top: 8px;
 }
@@ -104,7 +119,7 @@
   gap: 16px;
 }
 
-/* Tarjeta de producto */
+/* ------------------ TARJETA DEL PRODUCTO ------------------ */
 .admin-product-card {
   background: #f9f0e3;
   border-radius: 16px;
@@ -113,8 +128,37 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  position: relative;
+  transition: 0.25s ease;
 }
 
+.admin-product-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+/* ------------------ ESTILO PRODUCTO INACTIVO ------------------ */
+.producto-inactivo {
+  opacity: 0.45;
+  filter: grayscale(60%);
+  background: #f0e6d7 !important;
+}
+
+/* BADGE */
+.badge-inactivo {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #c53030;
+  color: white;
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  border-radius: 8px;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.22);
+}
+
+/* ------------------ CONTENIDO DE LA TARJETA ------------------ */
 .admin-product-main {
   display: flex;
   justify-content: space-between;
@@ -126,6 +170,7 @@
   margin: 0;
   font-size: 1.05rem;
   color: #22543d;
+  font-weight: 600;
 }
 
 .admin-product-cat {
@@ -135,8 +180,9 @@
 }
 
 .admin-product-price {
-  font-weight: 600;
+  font-weight: 700;
   color: #2f855a;
+  font-size: 1rem;
 }
 
 .admin-product-img {
@@ -144,9 +190,10 @@
   height: 80px;
   border-radius: 12px;
   object-fit: cover;
+  background-color: #eee;
 }
 
-/* Acciones */
+/* ------------------ BOTONES ------------------ */
 .admin-product-actions {
   display: flex;
   gap: 8px;
@@ -163,6 +210,7 @@
   color: #2f855a;
   font-size: 0.85rem;
   cursor: pointer;
+  transition: 0.2s ease;
 }
 
 .btn-outline:hover {
@@ -177,13 +225,30 @@
   color: #c53030;
   font-size: 0.85rem;
   cursor: pointer;
+  transition: 0.2s ease;
 }
 
 .btn-danger:hover {
   background: #fff5f5;
 }
 
-/* Editor inline de stock */
+/* ------------------ NUEVO: BOTÓN ACTIVAR ------------------ */
+.btn-activar {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #38a169;
+  border: 1px solid #2f855a;
+  color: white;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn-activar:hover {
+  background: #2f855a;
+}
+
+/* ------------------ EDICIÓN INLINE ------------------ */
 .admin-stock-inline {
   display: flex;
   align-items: center;
@@ -199,12 +264,6 @@
   font-size: 0.85rem;
 }
 
-.admin-stock-save {
-  padding-inline: 16px;
-  font-size: 0.8rem;
-}
-
-/* Botón texto para cancelar */
 .btn-ghost {
   background: transparent;
   border: none;
@@ -217,7 +276,7 @@
   text-decoration: underline;
 }
 
-/* Estados */
+/* ------------------ ESTADOS ------------------ */
 .admin-error {
   color: #c53030;
   margin-bottom: 8px;
@@ -225,23 +284,4 @@
 
 .admin-loading {
   color: #4a5568;
-}
-
-
-/* Fix: header sin fondo, pero sin afectar botones */
-.admin-header {
-  background: transparent !important;
-  box-shadow: none !important;
-}
-
-/* Elimina fondo heredado SOLO de textos, no botones */
-.admin-header h1,
-.admin-header p {
-  background: transparent !important;
-}
-
-/* Botón "Crear producto" conserva su estilo */
-.admin-btn-crear {
-  background: #2f855a !important;
-  color: white !important;
 }

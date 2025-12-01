@@ -1,6 +1,7 @@
 // src/pages/AdminUsuarios.jsx
 import React, { useEffect, useState } from "react";
-import { apiGet, apiPut, apiDelete } from "../api/client";
+import { apiGet, apiPut } from "../api/client";
+import { apiUsuarios } from "../api/usuarios";
 import { useUser } from "../context/UserContext";
 import "../styles/AdminUsuarios.css";
 
@@ -11,13 +12,16 @@ const AdminUsuarios = () => {
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState("");
 
-  const [editUser, setEditUser] = useState(null); // usuario que se está editando
+  const [editUser, setEditUser] = useState(null);
 
   useEffect(() => {
     if (!isAdmin) return;
     cargarUsuarios();
   }, [isAdmin]);
 
+  // ============================
+  // CARGAR USUARIOS
+  // ============================
   const cargarUsuarios = async () => {
     try {
       setCargando(true);
@@ -31,16 +35,18 @@ const AdminUsuarios = () => {
     }
   };
 
-  // ----------------------------
+  // ============================
   // EDITAR USUARIO
-  // ----------------------------
+  // ============================
   const iniciarEdicion = (u) => {
-    setEditUser({ ...u }); // copia de los datos
+    if (!u.enabled) {
+      alert("Este usuario está desactivado. No se puede editar.");
+      return;
+    }
+    setEditUser({ ...u });
   };
 
-  const cancelarEdicion = () => {
-    setEditUser(null);
-  };
+  const cancelarEdicion = () => setEditUser(null);
 
   const guardarUsuario = async () => {
     try {
@@ -55,28 +61,28 @@ const AdminUsuarios = () => {
       cargarUsuarios();
     } catch (e) {
       console.error("Error guardando usuario:", e);
-      alert("No se pudo guardar el usuario");
+      alert("No se pudo guardar el usuario.");
     }
   };
 
-  // ----------------------------
-  // ELIMINAR USUARIO
-  // ----------------------------
-  const eliminarUsuario = async (id, nombre) => {
-    if (!window.confirm(`¿Eliminar usuario "${nombre}"?`)) return;
+  // ============================
+  // DESACTIVAR USUARIO (LÓGICO)
+  // ============================
+  const desactivarUsuario = async (id, nombre) => {
+    if (!window.confirm(`¿Desactivar al usuario "${nombre}"?`)) return;
 
     try {
-      await apiDelete(`/api/usuarios/${id}`);
+      await apiUsuarios.deactivate(id);
       cargarUsuarios();
     } catch (e) {
       console.error(e);
-      alert("No se pudo eliminar el usuario.");
+      alert("No se pudo desactivar el usuario.");
     }
   };
 
-  // ----------------------------
-  // RENDER
-  // ----------------------------
+  // ============================
+  // VISTA ADMIN
+  // ============================
 
   if (!isAdmin) {
     return (
@@ -93,7 +99,9 @@ const AdminUsuarios = () => {
     <main className="admin-usuarios">
       <div className="container">
         <h1 className="title">Gestión de Usuarios</h1>
-        <p className="subtitle">Edita nombres, correos, roles o elimina usuarios.</p>
+        <p className="subtitle">
+          Edita datos, roles o desactiva usuarios sin eliminar su historial.
+        </p>
 
         {error && <p className="error">{error}</p>}
 
@@ -107,6 +115,7 @@ const AdminUsuarios = () => {
                 <th>Nombre</th>
                 <th>Correo</th>
                 <th>Rol</th>
+                <th>Estado</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -124,7 +133,10 @@ const AdminUsuarios = () => {
                           type="text"
                           value={editUser.nombre}
                           onChange={(e) =>
-                            setEditUser({ ...editUser, nombre: e.target.value })
+                            setEditUser({
+                              ...editUser,
+                              nombre: e.target.value,
+                            })
                           }
                         />
                       </td>
@@ -134,7 +146,10 @@ const AdminUsuarios = () => {
                           type="email"
                           value={editUser.correo}
                           onChange={(e) =>
-                            setEditUser({ ...editUser, correo: e.target.value })
+                            setEditUser({
+                              ...editUser,
+                              correo: e.target.value,
+                            })
                           }
                         />
                       </td>
@@ -143,13 +158,18 @@ const AdminUsuarios = () => {
                         <select
                           value={editUser.rol}
                           onChange={(e) =>
-                            setEditUser({ ...editUser, rol: e.target.value })
+                            setEditUser({
+                              ...editUser,
+                              rol: e.target.value,
+                            })
                           }
                         >
                           <option value="USER">USER</option>
                           <option value="ADMIN">ADMIN</option>
                         </select>
                       </td>
+
+                      <td>{u.enabled ? "Activo" : "Desactivado"}</td>
 
                       <td>
                         <button className="btn-save" onClick={guardarUsuario}>
@@ -169,19 +189,35 @@ const AdminUsuarios = () => {
                       <td>{u.rol}</td>
 
                       <td>
-                        <button
-                          className="btn-edit"
-                          onClick={() => iniciarEdicion(u)}
+                        <span
+                          className={
+                            u.enabled ? "estado-activo" : "estado-inactivo"
+                          }
                         >
-                          Editar
-                        </button>
+                          {u.enabled ? "Activo" : "Desactivado"}
+                        </span>
+                      </td>
 
-                        <button
-                          className="btn-danger"
-                          onClick={() => eliminarUsuario(u.id, u.nombre)}
-                        >
-                          Eliminar
-                        </button>
+                      <td>
+                        {u.enabled ? (
+                          <>
+                            <button
+                              className="btn-edit"
+                              onClick={() => iniciarEdicion(u)}
+                            >
+                              Editar
+                            </button>
+
+                            <button
+                              className="btn-danger"
+                              onClick={() => desactivarUsuario(u.id, u.nombre)}
+                            >
+                              Desactivar
+                            </button>
+                          </>
+                        ) : (
+                          <span className="badge-disabled">Inactivo</span>
+                        )}
                       </td>
                     </>
                   )}

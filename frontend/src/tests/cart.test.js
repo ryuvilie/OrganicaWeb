@@ -13,7 +13,7 @@ describe('🛒 Carrito de compras (Jasmine + Karma)', function () {
     producto2 = { id: 2, nombre: 'Pera', precio: 1000, cantidad: 1 };
   });
 
-  // ✅ TEST 1: Agregar producto al carritoA
+  // ✅ TEST 1: Agregar producto al carrito
   it('debería agregar un producto al carrito', function () {
     carrito.push(producto1);
     expect(carrito.length).toBe(1);

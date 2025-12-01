@@ -2,7 +2,8 @@
 import { apiPost } from "./client";
 
 export const apiVentas = {
-  async crearVenta(payload) {
-    return apiPost("/api/ventas", payload);
+  async finalizarCompra(payload) {
+    // Backend: POST /api/ventas/finalizar
+    return apiPost("/api/ventas/finalizar", payload);
   },
 };

@@ -1,49 +1,142 @@
-.admin-usuarios .title {
-  font-size: 2rem;
-  font-weight: bold;
+/* ======== CONTENEDOR GENERAL ======== */
+.admin-usuarios {
+  padding: 40px 0;
+  background-color: #fdfaf6; /* mismo fondo general */
+  min-height: calc(100vh - 150px);
 }
 
+.container {
+  max-width: 1100px;
+  margin: auto;
+  background: #fff;
+  padding: 24px 28px;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+}
+
+/* ======== TITULOS ======== */
+.title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #22543d;
+}
+
+.subtitle {
+  color: #4a5568;
+  margin-bottom: 20px;
+}
+
+/* ======== TABLA ======== */
 .usuarios-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
-.usuarios-table th,
+.usuarios-table th {
+  background-color: #f9f0e3;
+  padding: 12px;
+  border-bottom: 2px solid #e2e8f0;
+  color: #22543d;
+  font-size: 0.95rem;
+}
+
 .usuarios-table td {
   padding: 12px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #eee;
+  font-size: 0.9rem;
+  color: #2d3748;
 }
 
+/* ======== ESTADO ACTIVO / INACTIVO ======== */
+.estado-activo {
+  color: #2f855a;
+  font-weight: 600;
+}
+
+.estado-inactivo {
+  color: #c53030;
+  font-weight: 600;
+}
+
+.badge-disabled {
+  padding: 6px 12px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  color: #4a5568;
+  font-size: 0.8rem;
+}
+
+/* ======== BOTONES ======== */
 .btn-edit,
+.btn-danger,
 .btn-save,
-.btn-cancel,
-.btn-danger {
-  padding: 6px 10px;
-  margin-right: 5px;
-  cursor: pointer;
-}
-
-.btn-danger {
-  background: #e63946;
-  color: white;
-  border: none;
-}
-
-.btn-edit {
-  background: #3a86ff;
-  color: white;
-  border: none;
-}
-
-.btn-save {
-  background: #2a9d8f;
-  color: white;
-  border: none;
-}
-
 .btn-cancel {
-  background: #999;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-weight: 500;
+  border: 1px solid transparent;
+}
+
+/* EDITAR */
+.btn-edit {
+  background: #fff;
+  color: #2f855a;
+  border: 1px solid #2f855a;
+}
+.btn-edit:hover {
+  background: #e6fffa;
+}
+
+/* DESACTIVAR */
+.btn-danger {
+  background: #fff;
+  color: #c53030;
+  border: 1px solid #c53030;
+}
+.btn-danger:hover {
+  background: #fff5f5;
+}
+
+/* GUARDAR */
+.btn-save {
+  background: #2f855a;
   color: white;
-  border: none;
+}
+.btn-save:hover {
+  background: #276749;
+}
+
+/* CANCELAR */
+.btn-cancel {
+  background: #e2e8f0;
+  color: #4a5568;
+}
+.btn-cancel:hover {
+  background: #cbd5e0;
+}
+
+/* ======== INPUTS ======== */
+.usuarios-table input,
+.usuarios-table select {
+  padding: 6px 8px;
+  border-radius: 12px;
+  border: 1px solid #cbd5e0;
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+.usuarios-table input:focus,
+.usuarios-table select:focus {
+  border-color: #38a169;
+  box-shadow: 0 0 0 1px rgba(56, 161, 105, 0.3);
+}
+
+/* ======== ERRORES ======== */
+.error {
+  color: #c53030;
+  font-weight: bold;
+  margin-bottom: 15px;
 }

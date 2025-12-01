@@ -1,13 +1,17 @@
 // src/api/products.js
-import { apiGet, apiPost, apiPut, apiPatch, apiDelete } from "./client";
+import { apiGet, apiPost, apiPut, apiPatch } from "./client";
 
 export const apiProducts = {
-  // listado público (catálogo, etc.)
+  // listado público (solo activos)
   async list() {
     return apiGet("/api/productos");
   },
 
-  // solo ADMIN
+  // listado para admin que incluye inactivos
+  async listAdmin() {
+    return apiGet("/api/productos/admin");
+  },
+
   async create(producto) {
     return apiPost("/api/productos", producto);
   },
@@ -20,12 +24,17 @@ export const apiProducts = {
     return apiPatch(`/api/productos/${id}/stock`, { stock });
   },
 
-  // ⭐ NUEVO: actualizar precio
   async updatePrice(id, precio) {
     return apiPatch(`/api/productos/${id}/precio`, { precio });
   },
 
-  async remove(id) {
-    return apiDelete(`/api/productos/${id}`);
+  // ❌ eliminar real
+  // async remove(id) {
+  //   return apiDelete(`/api/productos/${id}`);
+  // }
+
+  // ✅ eliminación lógica (nuevo)
+  async deactivate(id) {
+    return apiPut(`/api/productos/${id}/desactivar`);
   },
 };

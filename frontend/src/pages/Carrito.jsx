@@ -1,3 +1,4 @@
+// src/pages/Carrito.jsx
 import React from "react";
 import { useCart } from "../context/CartContext";
 import { useUser } from "../context/UserContext";
@@ -9,39 +10,63 @@ function Carrito() {
     useCart();
   const { usuario } = useUser();
 
+  // Total calculado
   const total = cartItems.reduce(
     (sum, item) => sum + item.precio * item.cantidad,
     0
   );
 
+  // ===============================
+  // FINALIZAR COMPRA
+  // ===============================
   const finalizarCompra = async () => {
     if (cartItems.length === 0) {
       alert("Tu carrito está vacío.");
       return;
     }
 
+    // Formato que espera el backend
     const items = cartItems.map((p) => ({
-      idProducto: p.id_producto ?? p.id,
+      idProducto: p.id_producto ?? p.id, // normalizado
       cantidad: p.cantidad,
     }));
 
     const payload = {
-      // 🔥 si está loggeado mandamos su id_usuario, si no, null
-      idUsuario: usuario ? usuario.id_usuario : null,
+      // Si NO está loggeado → null
+      // Si está loggeado → id interno del usuario (UserContext guarda id = id_usuario del backend)
+      idUsuario: usuario ? usuario.id : null,
       items,
     };
 
     try {
-      const resp = await apiVentas.crearVenta(payload);
+      const resp = await apiVentas.finalizarCompra(payload);
+
       alert(
-        `Compra realizada con éxito. Total: $${resp.total.toLocaleString("es-CL")}`
+        `Compra realizada con éxito 🎉\nTotal: $${resp.total.toLocaleString(
+          "es-CL"
+        )}`
       );
-      clearCart();
+
+      clearCart(); // vaciar carrito
+
     } catch (error) {
       console.error("Error al crear la venta:", error);
-      alert("No se pudo finalizar la compra. Intenta nuevamente.");
+
+      let mensaje =
+        "No se pudo finalizar la compra. Revisa tu carrito e inténtalo nuevamente.";
+
+      // Nuestro apiClient lanza Error(message) con el texto que viene del backend
+      if (error?.message) {
+        mensaje = error.message;
+      }
+
+      alert(mensaje);
     }
   };
+
+  // ===============================
+  // RENDER
+  // ===============================
 
   return (
     <main className="carrito-container">
@@ -63,11 +88,14 @@ function Carrito() {
                 <th></th>
               </tr>
             </thead>
+
             <tbody>
               {cartItems.map((p) => (
                 <tr key={p.id}>
                   <td>{p.nombre}</td>
+
                   <td>${p.precio.toLocaleString("es-CL")}</td>
+
                   <td className="col-cantidad">
                     <button
                       onClick={() => decreaseFromCart(p.id)}
@@ -75,7 +103,9 @@ function Carrito() {
                     >
                       –
                     </button>
+
                     <span>{p.cantidad}</span>
+
                     <button
                       onClick={() => addToCart(p)}
                       className="btn-cantidad"
@@ -83,7 +113,9 @@ function Carrito() {
                       +
                     </button>
                   </td>
+
                   <td>${(p.precio * p.cantidad).toLocaleString("es-CL")}</td>
+
                   <td>
                     <button
                       className="btn-eliminar"
@@ -99,10 +131,12 @@ function Carrito() {
 
           <div className="carrito-acciones">
             <h2>Total: ${total.toLocaleString("es-CL")}</h2>
+
             <div>
               <button className="btn-vaciar" onClick={clearCart}>
                 Vaciar carrito
               </button>
+
               <button className="btn-comprar" onClick={finalizarCompra}>
                 Finalizar compra
               </button>
