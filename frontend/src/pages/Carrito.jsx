@@ -1,13 +1,11 @@
 import React from "react";
 import { useCart } from "../context/CartContext";
-import { useUser } from "../context/UserContext";
 import { apiVentas } from "../api/ventas";
 import "../styles/Carrito.css";
 
 function Carrito() {
   const { cartItems, addToCart, decreaseFromCart, removeFromCart, clearCart } =
     useCart();
-  const { usuario } = useUser();
 
   const total = cartItems.reduce(
     (sum, item) => sum + item.precio * item.cantidad,
@@ -21,13 +19,14 @@ function Carrito() {
     }
 
     const items = cartItems.map((p) => ({
-      idProducto: p.id_producto ?? p.id,
+      idProducto: p.id_producto ?? p.id,  // Asegúrate de enviar el id del producto
       cantidad: p.cantidad,
     }));
 
+    // Nuevo payload simplificado: solo necesitamos total, fecha, y los items
     const payload = {
-      // 🔥 si está loggeado mandamos su id_usuario, si no, null
-      idUsuario: usuario ? usuario.id_usuario : null,
+      total: total,
+      fecha: new Date().toISOString().split('T')[0],  // Fecha actual en formato YYYY-MM-DD
       items,
     };
 
