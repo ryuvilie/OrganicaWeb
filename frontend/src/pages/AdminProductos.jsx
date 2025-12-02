@@ -66,13 +66,11 @@ const AdminProductos = () => {
         categoria: form.categoria,
         precio: Number(form.precio),
         stock: Number(form.stock),
-        // 👇 importante: el backend espera imageUrl
         imageUrl: form.image_url,
       };
 
       await apiProducts.create(nuevo);
 
-      // limpiar formulario
       setForm({
         nombre: "",
         descripcion: "",
@@ -161,7 +159,7 @@ const AdminProductos = () => {
     }
   };
 
-  // ================== ELIMINAR ==================
+  // ================== ELIMINAR (ELIMINACIÓN LÓGICA) ==================
   const handleEliminar = async (producto) => {
     const ok = window.confirm(
       `¿Eliminar el producto "${producto.nombre}"? Esta acción no se puede deshacer.`
@@ -174,7 +172,7 @@ const AdminProductos = () => {
       console.error("Error eliminando producto:", e);
       alert("No se pudo eliminar el producto.");
     } finally {
-      await cargarProductos();
+      await cargarProductos(); // recargar lista sin el producto
     }
   };
 
@@ -196,7 +194,6 @@ const AdminProductos = () => {
   return (
     <main className="admin-products">
       <div className="container">
-        {/* Encabezado */}
         <header className="admin-header">
           <div>
             <h1 className="admin-title">Administrar productos</h1>
@@ -351,7 +348,6 @@ const AdminProductos = () => {
                       </div>
 
                       <div className="admin-product-actions">
-                        {/* Botones normales */}
                         {!isEditingStock && !isEditingPrice && (
                           <>
                             <button
@@ -380,7 +376,6 @@ const AdminProductos = () => {
                           </>
                         )}
 
-                        {/* Modo edición STOCK */}
                         {isEditingStock && (
                           <div className="admin-stock-inline">
                             <input
@@ -407,7 +402,6 @@ const AdminProductos = () => {
                           </div>
                         )}
 
-                        {/* Modo edición PRECIO */}
                         {isEditingPrice && (
                           <div className="admin-stock-inline">
                             <input

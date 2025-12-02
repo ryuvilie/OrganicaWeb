@@ -1,8 +1,14 @@
 // src/api/ventas.js
-import { apiPost } from "./client";
+import { apiPost, apiGet } from "./client";
 
 export const apiVentas = {
-  async crearVenta(payload) {
-    return apiPost("/api/ventas", payload);
+  crearVenta(data) {
+    return apiPost("/api/ventas", data);
+  },
+  getVenta(id) {
+    return apiGet(`/api/ventas/${id}`);
+  },
+  listar() {
+    return apiGet("/api/ventas");
   },
 };

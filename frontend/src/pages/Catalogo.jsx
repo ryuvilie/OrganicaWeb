@@ -1,16 +1,15 @@
+// src/pages/Catalogo.jsx
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { apiProducts } from "../api/products";        // 👈 ahora usamos la API real
+import { apiProducts } from "../api/products";
 import ProductCard from "../components/ProductCard";
 import "../styles/Catalogo.css";
 
 const Catalogo = () => {
-  // estado para productos del backend
   const [productos, setProductos] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
 
-  // estado local de filtros
   const [categoria, setCategoria] = useState("Todos");
   const [terminoBusqueda, setTerminoBusqueda] = useState("");
   const [ordenarPor, setOrdenarPor] = useState("defecto");
@@ -24,7 +23,6 @@ const Catalogo = () => {
     { valor: "nombre-desc", etiqueta: "Nombre: Z-A" },
   ];
 
-  // 👇 Leer ?cat=frutas|verduras|semillas|otros|todas desde la URL
   const [searchParams] = useSearchParams();
   const catParam = (searchParams.get("cat") || "").toLowerCase();
   const mapCat = {
@@ -34,31 +32,25 @@ const Catalogo = () => {
     otros: "Otros",
     todas: "Todos",
   };
-  const categoriaURL = mapCat[catParam]; // undefined si no viene o no coincide
-
-  // 👇 categoría efectiva: si viene por URL, se usa; si no, la del estado
+  const categoriaURL = mapCat[catParam];
   const categoriaActiva = categoriaURL || categoria;
 
-  // 🔄 cargar productos desde el backend al montar el componente
   useEffect(() => {
-    async function cargarProductos() {
+    async function cargar() {
       try {
         setCargando(true);
-        setError(null);
-        const data = await apiProducts.list();   // GET /api/productos
+        const data = await apiProducts.list(); // YA trae solo activos
         setProductos(data || []);
       } catch (e) {
         console.error("Error cargando productos:", e);
-        setError("No se pudieron cargar los productos. Intenta más tarde.");
+        setError("No se pudieron cargar los productos.");
       } finally {
         setCargando(false);
       }
     }
-
-    cargarProductos();
+    cargar();
   }, []);
 
-  // estados de carga / error
   if (cargando) {
     return (
       <main className="catalogo-container">
@@ -77,20 +69,18 @@ const Catalogo = () => {
     );
   }
 
-  // 1) Filtrar por categoría (usando la efectiva)
+  // 1) Filtrar categoría
   let productosActuales =
     categoriaActiva === "Todos"
       ? productos
       : productos.filter((p) => p.categoria === categoriaActiva);
 
-  // 2) Filtrar por búsqueda (nombre)
+  // 2) búsqueda
   productosActuales = productosActuales.filter((producto) =>
-    (producto.nombre || "")
-      .toLowerCase()
-      .includes(terminoBusqueda.toLowerCase())
+    (producto.nombre || "").toLowerCase().includes(terminoBusqueda.toLowerCase())
   );
 
-  // 3) Ordenar
+  // 3) orden
   const productosFiltradosOrdenados = [...productosActuales].sort((a, b) => {
     switch (ordenarPor) {
       case "precio-asc":
@@ -122,7 +112,7 @@ const Catalogo = () => {
           />
         </div>
 
-        {/* Chips de categoría (marcamos activo con la categoría efectiva) */}
+        {/* Filtros */}
         <div className="filtros-categoria">
           {categorias.map((cat) => (
             <button
@@ -131,8 +121,8 @@ const Catalogo = () => {
                 categoriaActiva === cat ? "activo" : ""
               }`}
               onClick={() => {
-                setCategoria(cat); // actualiza el estado si el usuario cambia
-                setTerminoBusqueda(""); // opcional: limpiar búsqueda
+                setCategoria(cat);
+                setTerminoBusqueda("");
               }}
             >
               {cat}
@@ -140,7 +130,7 @@ const Catalogo = () => {
           ))}
         </div>
 
-        {/* Ordenar */}
+        {/* Orden */}
         <div className="ordenamiento">
           <label htmlFor="ordenarPor">Ordenar por:</label>
           <select
@@ -161,7 +151,7 @@ const Catalogo = () => {
       <div className="productos-grid">
         {productosFiltradosOrdenados.length > 0 ? (
           productosFiltradosOrdenados.map((producto) => (
-            <ProductCard key={producto.id} producto={producto} />
+            <ProductCard key={producto.id_producto ?? producto.id} producto={producto} />
           ))
         ) : (
           <p>No se encontraron productos que coincidan con los filtros.</p>

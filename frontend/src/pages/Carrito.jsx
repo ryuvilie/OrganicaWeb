@@ -21,22 +21,28 @@ function Carrito() {
     }
 
     const items = cartItems.map((p) => ({
-      idProducto: p.id_producto ?? p.id,
+      idProducto: p.id_producto,
       cantidad: p.cantidad,
     }));
 
-    const payload = {
-      // 🔥 si está loggeado mandamos su id_usuario, si no, null
-      idUsuario: usuario ? usuario.id_usuario : null,
-      items,
-    };
+    const payload = { items };
 
     try {
       const resp = await apiVentas.crearVenta(payload);
+      
+      // Verificar cómo está la respuesta
+      console.log("Respuesta del backend:", resp);
+
+      // 🔥 SEGURO PARA FETCH O AXIOS
+      const venta = resp.data ? resp.data : resp; // Si es axios o fetch
+      const totalFinal = venta.total;
+
       alert(
-        `Compra realizada con éxito. Total: $${resp.total.toLocaleString("es-CL")}`
+        `Compra realizada con éxito. Total: $${totalFinal.toLocaleString("es-CL")}`
       );
-      clearCart();
+
+      clearCart(); // Limpiar el carrito después de finalizar la compra
+
     } catch (error) {
       console.error("Error al crear la venta:", error);
       alert("No se pudo finalizar la compra. Intenta nuevamente.");
@@ -65,12 +71,12 @@ function Carrito() {
             </thead>
             <tbody>
               {cartItems.map((p) => (
-                <tr key={p.id}>
+                <tr key={p.id_producto}>
                   <td>{p.nombre}</td>
                   <td>${p.precio.toLocaleString("es-CL")}</td>
                   <td className="col-cantidad">
                     <button
-                      onClick={() => decreaseFromCart(p.id)}
+                      onClick={() => decreaseFromCart(p.id_producto)}
                       className="btn-cantidad"
                     >
                       –
@@ -87,7 +93,7 @@ function Carrito() {
                   <td>
                     <button
                       className="btn-eliminar"
-                      onClick={() => removeFromCart(p.id)}
+                      onClick={() => removeFromCart(p.id_producto)}
                     >
                       ❌
                     </button>
