@@ -63,7 +63,8 @@ const AdminProductos = () => {
         categoria: form.categoria,
         precio: Number(form.precio),
         stock: Number(form.stock),
-        image_url: form.image_url,
+        // 👇 clave que mapea con @Column(name = "image_url")
+        imageUrl: form.image_url?.trim() || null,
       };
 
       console.log("Creando producto...", nuevo); // debug opcional
@@ -322,6 +323,8 @@ const AdminProductos = () => {
                   const isEditingStock = editingStock?.id === idProducto;
                   const isEditingPrice = editingPrice?.id === idProducto;
 
+                  const imageSrc = p.imageUrl || p.image_url;
+
                   return (
                     <article key={idProducto} className="admin-product-card">
                       <div className="admin-product-main">
@@ -335,9 +338,9 @@ const AdminProductos = () => {
                           </p>
                         </div>
 
-                        {p.image_url && (
+                        {imageSrc && (
                           <img
-                            src={p.image_url}
+                            src={imageSrc}
                             alt={p.nombre}
                             className="admin-product-img"
                             onError={(e) => {
