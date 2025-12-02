@@ -12,10 +12,11 @@ const AdminProductos = () => {
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState("");
   const [mostrarForm, setMostrarForm] = useState(false);
+
   const [form, setForm] = useState({
     nombre: "",
     descripcion: "",
-    categoria: "Verduras",
+    categoria: "Verduras", // o categorias[0] si quieres
     precio: "",
     stock: "",
     image_url: "",
@@ -53,6 +54,8 @@ const AdminProductos = () => {
 
   const handleCrearProducto = async (e) => {
     e.preventDefault();
+    setError("");
+
     try {
       const nuevo = {
         nombre: form.nombre,
@@ -62,7 +65,12 @@ const AdminProductos = () => {
         stock: Number(form.stock),
         image_url: form.image_url,
       };
+
+      console.log("Creando producto...", nuevo); // debug opcional
+
       await apiProducts.create(nuevo);
+
+      // Limpiar formulario
       setForm({
         nombre: "",
         descripcion: "",
@@ -71,6 +79,7 @@ const AdminProductos = () => {
         stock: "",
         image_url: "",
       });
+
       setMostrarForm(false);
       await cargarProductos();
     } catch (e) {
@@ -205,7 +214,94 @@ const AdminProductos = () => {
           <section className="admin-form-card">
             <h2>Nuevo producto</h2>
             <form className="admin-form-grid" onSubmit={handleCrearProducto}>
-              {/* ... formulario igual ... */}
+              <div className="form-group">
+                <label htmlFor="nombre">Nombre</label>
+                <input
+                  type="text"
+                  id="nombre"
+                  name="nombre"
+                  value={form.nombre}
+                  onChange={handleChange}
+                  placeholder="Nombre del producto"
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="descripcion">Descripción</label>
+                <textarea
+                  id="descripcion"
+                  name="descripcion"
+                  value={form.descripcion}
+                  onChange={handleChange}
+                  placeholder="Breve descripción"
+                  rows={3}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="categoria">Categoría</label>
+                <select
+                  id="categoria"
+                  name="categoria"
+                  value={form.categoria}
+                  onChange={handleChange}
+                >
+                  {categorias.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="precio">Precio</label>
+                <input
+                  type="number"
+                  id="precio"
+                  name="precio"
+                  min="0"
+                  step="1"
+                  value={form.precio}
+                  onChange={handleChange}
+                  placeholder="Ej: 3490"
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="stock">Stock</label>
+                <input
+                  type="number"
+                  id="stock"
+                  name="stock"
+                  min="0"
+                  step="1"
+                  value={form.stock}
+                  onChange={handleChange}
+                  placeholder="Ej: 10"
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="image_url">URL de imagen</label>
+                <input
+                  type="url"
+                  id="image_url"
+                  name="image_url"
+                  value={form.image_url}
+                  onChange={handleChange}
+                  placeholder="https://..."
+                />
+              </div>
+
+              <div className="form-actions">
+                <button type="submit" className="btn-enviar">
+                  Guardar producto
+                </button>
+              </div>
             </form>
           </section>
         )}
@@ -252,7 +348,6 @@ const AdminProductos = () => {
                       </div>
 
                       <div className="admin-product-actions">
-
                         {/* Botones normales */}
                         {!isEditingStock && !isEditingPrice && (
                           <>
@@ -335,7 +430,6 @@ const AdminProductos = () => {
                             </button>
                           </div>
                         )}
-
                       </div>
                     </article>
                   );
