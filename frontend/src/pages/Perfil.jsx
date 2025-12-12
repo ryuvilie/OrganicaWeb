@@ -6,9 +6,9 @@ import "../styles/Perfil.css";
 
 const Perfil = () => {
   const { usuario, logout } = useUser();
+  const esAdmin = usuario?.rol === "ADMIN";
 
   const [editando, setEditando] = useState(false);
-
   const [form, setForm] = useState({
     nombre: usuario?.nombre || "",
     correo: usuario?.correo || "",
@@ -41,7 +41,7 @@ const Perfil = () => {
         <h1 className="perfil-title">Mi Perfil</h1>
 
         {/* ======================= */}
-        {/*   VISTA NORMAL */}
+        {/*   VISTA NORMAL          */}
         {/* ======================= */}
         {!editando && (
           <div className="perfil-info">
@@ -50,36 +50,38 @@ const Perfil = () => {
             <p><strong>Correo:</strong> {usuario.correo}</p>
             <p><strong>Rol:</strong> {usuario.rol}</p>
 
-            <button 
-              className="perfil-edit-btn" 
-              onClick={() => setEditando(true)}
-            >
-              Editar perfil
-            </button>
+            {/* ======== ACCIONES ======== */}
+            <div className="perfil-actions">
+              <div className={`perfil-actions-row ${esAdmin ? "is-admin" : ""}`}>
+                <button
+                  type="button"
+                  className="perfil-edit-btn"
+                  onClick={() => setEditando(true)}
+                >
+                  Editar perfil
+                </button>
 
-            {/* 🔥 SOLO ADMIN VE ESTE BOTÓN */}
-            {usuario.rol === "ADMIN" && (
-              <Link 
-                to="/admin/usuarios" 
-                className="perfil-edit-btn" 
-                style={{ marginTop: "15px", textAlign: "center" }}
+                {esAdmin && (
+                  <Link to="/admin/usuarios" className="perfil-admin-btn">
+                    Administrar usuarios
+                  </Link>
+                )}
+              </div>
+
+              <button
+                type="button"
+                className="btn-cancel"
+                onClick={logout}
               >
-                Administrar usuarios
-              </Link>
-            )}
+                Cerrar sesión
+              </button>
+            </div>
 
-            <button
-              className="btn-cancel"
-              style={{ marginTop: "15px" }}
-              onClick={logout}
-            >
-              Cerrar sesión
-            </button>
           </div>
         )}
 
         {/* ======================= */}
-        {/*   MODO EDICIÓN */}
+        {/*   MODO EDICIÓN          */}
         {/* ======================= */}
         {editando && (
           <form onSubmit={handleGuardar} className="perfil-form">
@@ -112,7 +114,9 @@ const Perfil = () => {
             />
 
             <div className="perfil-form-buttons">
-              <button className="btn-save" type="submit">Guardar</button>
+              <button className="btn-save" type="submit">
+                Guardar
+              </button>
 
               <button
                 type="button"
@@ -122,6 +126,7 @@ const Perfil = () => {
                 Cancelar
               </button>
             </div>
+
           </form>
         )}
 

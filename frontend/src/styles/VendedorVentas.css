@@ -1,61 +1,87 @@
 /* =========================
-   VENDEDOR - VENTAS
+   VENDEDOR - VENTAS (LOOK CONTACTO)
    ========================= */
 
 .vendedor-ventas {
-  padding: 40px 0;
-  background-color: #fdfaf6;
+  padding: 48px 0;
+  background: #eef7ef; /* parecido al fondo suave de Contacto */
 }
 
-/* Encabezado */
+/* Contenedor tipo "card" para el encabezado (adiós barra verde) */
 .vendedor-header {
+  background: #ffffff;
+  border: 1px solid rgba(34, 84, 61, 0.12);
+  border-radius: 18px;
+  padding: 22px 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 16px;
-  margin-bottom: 24px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+  margin-bottom: 18px;
 }
 
+/* Tipografías similares a Contacto */
 .vendedor-title {
-  font-size: 1.8rem;
-  font-weight: 700;
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 800;
   color: #22543d;
+  letter-spacing: 0.2px;
 }
 
 .vendedor-subtitle {
+  margin: 6px 0 0;
   color: #4a5568;
-  margin-top: 4px;
-  font-size: 0.95rem;
+  font-size: 0.98rem;
+  line-height: 1.35;
 }
 
-/* Botón de crear venta */
+/* Botón "Crear venta" (verde bonito, no bloque) */
 .vendedor-btn-crear {
   width: auto !important;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   white-space: nowrap;
-  padding-inline: 24px;
-  flex-shrink: 0;
+  padding: 10px 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(34, 84, 61, 0.18);
+  background: #2f855a;
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.08s ease, filter 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 10px 18px rgba(47, 133, 90, 0.18);
+}
+
+.vendedor-btn-crear:hover {
+  filter: brightness(0.98);
+  box-shadow: 0 12px 22px rgba(47, 133, 90, 0.24);
+}
+
+.vendedor-btn-crear:active {
+  transform: translateY(1px);
 }
 
 /* Lista de ventas */
 .vendedor-list {
-  margin-top: 8px;
+  margin-top: 14px;
 }
 
 .vendedor-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 16px;
 }
 
-/* Tarjeta de venta */
+/* Tarjeta de venta (más "contact style") */
 .vendedor-venta-card {
   background: #ffffff;
-  border-radius: 16px;
-  padding: 20px 24px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(34, 84, 61, 0.12);
+  border-radius: 18px;
+  padding: 18px 20px;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.06);
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -72,140 +98,171 @@
   margin: 0;
   font-size: 1.05rem;
   color: #22543d;
+  font-weight: 800;
 }
 
 .vendedor-venta-total {
-  font-weight: 600;
+  font-weight: 800;
   color: #2f855a;
+  background: rgba(47, 133, 90, 0.10);
+  border: 1px solid rgba(47, 133, 90, 0.18);
+  padding: 6px 10px;
+  border-radius: 999px;
 }
 
+/* Acciones */
 .vendedor-venta-actions {
   display: flex;
-  gap: 8px;
-  margin-top: 6px;
+  gap: 10px;
+  margin-top: 4px;
   align-items: center;
   flex-wrap: wrap;
 }
 
 .vendedor-btn-outline {
-  padding: 8px 12px;
-  border-radius: 999px;
-  border: 1px solid #2f855a;
-  background: #fff;
+  padding: 9px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(47, 133, 90, 0.35);
+  background: #ffffff;
   color: #2f855a;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+  font-weight: 700;
   cursor: pointer;
+  transition: background 0.15s ease, transform 0.08s ease;
 }
 
 .vendedor-btn-outline:hover {
-  background: #e6fffa;
+  background: rgba(47, 133, 90, 0.10);
+}
+
+.vendedor-btn-outline:active {
+  transform: translateY(1px);
 }
 
 .vendedor-btn-primary {
-  padding: 8px 12px;
-  border-radius: 999px;
-  border: 1px solid #2563eb;
-  background: #2563eb;
+  padding: 9px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(34, 84, 61, 0.18);
+  background: #22543d;
   color: white;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+  font-weight: 800;
   cursor: pointer;
+  transition: filter 0.15s ease, transform 0.08s ease;
 }
 
 .vendedor-btn-primary:hover {
-  background: #1d4ed8;
+  filter: brightness(0.96);
 }
 
-/* Formulario de creación de venta */
+.vendedor-btn-primary:active {
+  transform: translateY(1px);
+}
+
+/* Formulario de creación de venta (igual de elegante) */
 .vendedor-form-card {
-  background: #fff;
-  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid rgba(34, 84, 61, 0.12);
+  border-radius: 18px;
   padding: 20px 24px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
-  margin-bottom: 24px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+  margin-bottom: 18px;
 }
 
 .vendedor-form-card h2 {
-  margin-bottom: 12px;
+  margin: 0 0 14px;
   font-size: 1.2rem;
   color: #22543d;
+  font-weight: 900;
 }
 
 .vendedor-form-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 16px;
 }
 
 .vendedor-form-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .vendedor-form-group label {
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   color: #4a5568;
+  font-weight: 700;
 }
 
 .vendedor-form-group input,
 .vendedor-form-group select {
-  border-radius: 10px;
-  border: 1px solid #cbd5e0;
-  padding: 8px 10px;
-  font-size: 0.95rem;
+  border-radius: 12px;
+  border: 1px solid rgba(34, 84, 61, 0.18);
+  padding: 10px 12px;
+  font-size: 0.98rem;
   outline: none;
+  background: #ffffff;
 }
 
 .vendedor-form-group input:focus,
 .vendedor-form-group select:focus {
-  border-color: #38a169;
-  box-shadow: 0 0 0 1px rgba(56, 161, 105, 0.3);
+  border-color: #2f855a;
+  box-shadow: 0 0 0 3px rgba(47, 133, 90, 0.16);
 }
 
+/* Botones abajo del form */
 .vendedor-form-actions {
   grid-column: 1 / -1;
   display: flex;
   justify-content: flex-end;
-  margin-top: 4px;
+  gap: 10px;
+  margin-top: 6px;
 }
 
+/* Botón secundario */
 .vendedor-btn-ghost {
-  padding: 8px 12px;
-  border-radius: 999px;
-  border: none;
-  background: transparent;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(74, 85, 104, 0.25);
+  background: #ffffff;
   color: #4a5568;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+  font-weight: 800;
   cursor: pointer;
 }
 
 .vendedor-btn-ghost:hover {
-  text-decoration: underline;
+  background: rgba(74, 85, 104, 0.06);
 }
 
 /* Estados */
 .vendedor-error {
   color: #c53030;
-  margin-bottom: 8px;
+  margin: 10px 0 0;
+  font-weight: 700;
 }
 
-.vendedor-loading {
+.vendedor-loading,
+.vendedor-no-access {
   color: #4a5568;
 }
 
-.vendedor-no-access {
-  text-align: center;
-  color: #6b7280;
-}
-
 /* Responsive */
-@media (max-width: 600px) {
+@media (max-width: 650px) {
   .vendedor-header {
     flex-direction: column;
     align-items: flex-start;
   }
 
   .vendedor-btn-crear {
+    width: 100% !important;
+  }
+
+  .vendedor-form-actions {
+    justify-content: stretch;
+  }
+
+  .vendedor-form-actions > * {
     width: 100%;
   }
 }
