@@ -91,3 +91,8 @@
   border-radius: 5px;
   font-size: 0.8rem;
 }
+.product-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}

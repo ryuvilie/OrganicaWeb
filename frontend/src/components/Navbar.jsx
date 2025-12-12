@@ -8,7 +8,7 @@ const SiteNavbar = () => {
   const { cartItems } = useCart();
   const cantidadTotal = cartItems.reduce((sum, item) => sum + item.cantidad, 0);
 
-  const { usuario, isAdmin, logout } = useUser();
+  const { usuario, isAdmin, isVendedor, logout } = useUser();
 
   const nombreMostrar =
     usuario?.nombre || usuario?.correo || usuario?.email || "";
@@ -39,20 +39,29 @@ const SiteNavbar = () => {
                 Inicio
               </NavLink>
             </li>
+
             <li>
               <NavLink to="/catalogo">Productos</NavLink>
             </li>
+
             <li>
               <NavLink to="/contacto">Contacto</NavLink>
             </li>
 
-            {/* Opciones extra solo para ADMIN */}
+            {/* 🧾 VENTAS — SOLO VENDEDOR / ADMIN */}
+            {(isVendedor || isAdmin) && (
+              <li>
+                <NavLink to="/vendedor/ventas">Ventas</NavLink>
+              </li>
+            )}
+
+            {/* ⚙️ ADMIN */}
             {isAdmin && (
-              <>
-                <li>
-                  <NavLink to="/admin/productos">Administrar productos</NavLink>
-                </li>
-              </>
+              <li>
+                <NavLink to="/admin/productos">
+                  Administrar productos
+                </NavLink>
+              </li>
             )}
           </ul>
         </nav>
@@ -73,7 +82,6 @@ const SiteNavbar = () => {
           <div className="user-info">
             {usuario ? (
               <>
-                {/* 🔥 ENLACE AL PERFIL */}
                 <Link to="/perfil" className="user-bienvenida perfil-link">
                   👋 {nombreMostrar}
                 </Link>

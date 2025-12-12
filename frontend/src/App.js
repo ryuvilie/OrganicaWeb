@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
+import ProductoDetalle from "./pages/ProductoDetalle";
 import SiteNavbar from './components/Navbar';
 import Home from './pages/Home';
 import Productos from './pages/Productos';
@@ -12,10 +13,12 @@ import Footer from './components/Footer';
 import Ofertas from "./pages/Ofertas";
 import AdminProductos from "./pages/AdminProductos";
 import Perfil from "./pages/Perfil";
-import PrivateRouteAdmin from "./routes/PrivateRouteAdmin";
 import Forbidden403 from "./pages/Forbidden403";
 import AdminUsuarios from "./pages/AdminUsuarios";
+import VendedorVentas from "./pages/VendedorVentas";
 
+import PrivateRouteAdmin from "./routes/PrivateRouteAdmin";
+import PrivateRouteVendedor from "./routes/PrivateRouteVendedor";
 
 function App() {
   return (
@@ -23,6 +26,7 @@ function App() {
       <SiteNavbar />
 
       <Routes>
+        <Route path="/productos/:id" element={<ProductoDetalle />} />
         <Route path="/" element={<Home />} />
         <Route path="/contacto" element={<Contacto />} />
         <Route path="/productos" element={<Productos />} />
@@ -31,11 +35,8 @@ function App() {
         <Route path="/registro" element={<Registro />} />
         <Route path="/ofertas" element={<Ofertas />} />
         <Route path="/perfil" element={<Perfil />} />
-        <Route path="/admin/usuarios" element={<AdminUsuarios />} />
 
-
-
-        {/* 🔐 RUTA PROTEGIDA PARA ADMIN */}
+        {/* 🔐 ADMIN */}
         <Route
           path="/admin/productos"
           element={
@@ -45,10 +46,29 @@ function App() {
           }
         />
 
-        {/* ❌ Ruta para acceso prohibido */}
+        <Route
+          path="/admin/usuarios"
+          element={
+            <PrivateRouteAdmin>
+              <AdminUsuarios />
+            </PrivateRouteAdmin>
+          }
+        />
+
+        {/* 🧾 VENDEDOR */}
+        <Route
+          path="/vendedor/ventas"
+          element={
+            <PrivateRouteVendedor>
+              <VendedorVentas />
+            </PrivateRouteVendedor>
+          }
+        />
+
+        {/* ❌ Acceso prohibido */}
         <Route path="/403" element={<Forbidden403 />} />
 
-        {/* Cualquier ruta inválida → Home */}
+        {/* Fallback */}
         <Route path="*" element={<Home />} />
       </Routes>
 

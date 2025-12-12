@@ -1,0 +1,211 @@
+/* =========================
+   VENDEDOR - VENTAS
+   ========================= */
+
+.vendedor-ventas {
+  padding: 40px 0;
+  background-color: #fdfaf6;
+}
+
+/* Encabezado */
+.vendedor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.vendedor-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #22543d;
+}
+
+.vendedor-subtitle {
+  color: #4a5568;
+  margin-top: 4px;
+  font-size: 0.95rem;
+}
+
+/* Botón de crear venta */
+.vendedor-btn-crear {
+  width: auto !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  padding-inline: 24px;
+  flex-shrink: 0;
+}
+
+/* Lista de ventas */
+.vendedor-list {
+  margin-top: 8px;
+}
+
+.vendedor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+/* Tarjeta de venta */
+.vendedor-venta-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px 24px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.vendedor-venta-main {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.vendedor-venta-main h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: #22543d;
+}
+
+.vendedor-venta-total {
+  font-weight: 600;
+  color: #2f855a;
+}
+
+.vendedor-venta-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.vendedor-btn-outline {
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid #2f855a;
+  background: #fff;
+  color: #2f855a;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.vendedor-btn-outline:hover {
+  background: #e6fffa;
+}
+
+.vendedor-btn-primary {
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid #2563eb;
+  background: #2563eb;
+  color: white;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.vendedor-btn-primary:hover {
+  background: #1d4ed8;
+}
+
+/* Formulario de creación de venta */
+.vendedor-form-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px 24px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  margin-bottom: 24px;
+}
+
+.vendedor-form-card h2 {
+  margin-bottom: 12px;
+  font-size: 1.2rem;
+  color: #22543d;
+}
+
+.vendedor-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.vendedor-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.vendedor-form-group label {
+  font-size: 0.9rem;
+  color: #4a5568;
+}
+
+.vendedor-form-group input,
+.vendedor-form-group select {
+  border-radius: 10px;
+  border: 1px solid #cbd5e0;
+  padding: 8px 10px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.vendedor-form-group input:focus,
+.vendedor-form-group select:focus {
+  border-color: #38a169;
+  box-shadow: 0 0 0 1px rgba(56, 161, 105, 0.3);
+}
+
+.vendedor-form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+.vendedor-btn-ghost {
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: #4a5568;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.vendedor-btn-ghost:hover {
+  text-decoration: underline;
+}
+
+/* Estados */
+.vendedor-error {
+  color: #c53030;
+  margin-bottom: 8px;
+}
+
+.vendedor-loading {
+  color: #4a5568;
+}
+
+.vendedor-no-access {
+  text-align: center;
+  color: #6b7280;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .vendedor-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .vendedor-btn-crear {
+    width: 100%;
+  }
+}
