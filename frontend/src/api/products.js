@@ -1,13 +1,22 @@
-// src/api/products.js
 import { apiGet, apiPost, apiPut, apiPatch, apiDelete } from "./client";
 
 export const apiProducts = {
-  // listado público (catálogo, etc.)
+  // 📦 listado público
   async list() {
     return apiGet("/api/productos");
   },
 
-  // solo ADMIN
+  // 🔎 detalle por ID (para ProductoDetalle)
+  async getById(id) {
+    return apiGet(`/api/productos/${id}`);
+  },
+
+  // ⭐ comentario (solo CLIENTE, no se guarda en BD)
+  async comentar(id, payload) {
+    return apiPost(`/api/productos/${id}/comentario`, payload);
+  },
+
+  // 🔒 ADMIN
   async create(producto) {
     return apiPost("/api/productos", producto);
   },
@@ -20,7 +29,6 @@ export const apiProducts = {
     return apiPatch(`/api/productos/${id}/stock`, { stock });
   },
 
-  // ⭐ NUEVO: actualizar precio
   async updatePrice(id, precio) {
     return apiPatch(`/api/productos/${id}/precio`, { precio });
   },

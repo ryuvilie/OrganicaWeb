@@ -96,3 +96,6 @@
   color: inherit;
   display: block;
 }
+.product-card {
+  cursor: pointer;
+}
