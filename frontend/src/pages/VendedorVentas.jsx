@@ -30,7 +30,10 @@ const VendedorVentas = () => {
       setCargando(true);
       setError("");
       const data = await apiVentas.listarVentas();
-      setVentas(data || []);
+      if (typeof console !== "undefined") {
+        console.debug("cargarVentas - data recibida:", data);
+      }
+      setVentas(Array.isArray(data) ? data : []);
     } catch (e) {
       console.error("Error cargando ventas:", e);
       setError("No se pudieron cargar las ventas.");
